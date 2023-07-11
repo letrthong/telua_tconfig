@@ -1,0 +1,390 @@
+{
+  "accounting": {
+    "book": {
+      "description": "Sự miêu tả",
+      "detail": "Chi tiết",
+      "menu": {
+        "add_tran": "Thêm giao dịch",
+        "delete": "Xóa",
+        "edit": "Chỉnh sửa",
+        "show": "Xem chi tiết"
+      },
+      "name": "Tên sách",
+      "type": "Loại sách"
+    },
+    "event": {
+      "total_transactions": "Giao dịch"
+    },
+    "menu": {
+      "accounting_book": "Sổ kế toán",
+      "accounting_trans": "Kế toán chuyển đổi",
+      "events": "Sự kiện",
+      "proposal": "Đề xuất"
+    },
+    "proposal": {
+      "amount": "Số tiền",
+      "content": "Nội dung",
+      "created_at": "Ngày tạo",
+      "created_by": "Được tạo bởi",
+      "description": "Mô tả",
+      "due_date": "Ngày hết hạn",
+      "event": "Sự kiện",
+      "note": "Ghi chú",
+      "related_to": "Sự kiện liên qua",
+      "status": "Trạng thái",
+      "to": "Đến",
+      "type": {
+        "accepted": "Chấp nhận",
+        "declined": "Từ chối",
+        "open": "Đang mở",
+        "revised": "Cần sửa đổi"
+      }
+    },
+    "tran": {
+      "amount": "Số tiền Credit/Debit",
+      "balance": "Balance",
+      "book_id": "Book id",
+      "credit_or_debit": {
+        "menu": {
+          "C": "Credit",
+          "D": "Debit"
+        },
+        "title": "Credit hoặc debit"
+      },
+      "description": "Mô tả",
+      "related": "Sự kiện",
+      "related_event": "Sự kiện liên quan",
+      "transaction_date": "Ngày giao dịch",
+      "transaction_id": "Mã giao dịch"
+    }
+  },
+  "alert": {
+    "error": {
+      "default": "Có lỗi xảy ra, vui lòng thử lại sau",
+      "network": "Lỗi mạng, vui lòng kiểm tra kết nối của bạn và thử lại",
+      "unauthorized": "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại"
+    },
+    "info": {
+      "copied": "Đã copy",
+      "loading": "Vui lòng chờ...",
+      "no_data": "Không có dữ liệu",
+      "search": "Tìm kiếm..."
+    },
+    "permission": {
+      "camera": "Bạn cần bật quyền của máy ảnh để sử dụng tính năng này",
+      "location": "Vui lòng bật vị trí để sử dụng tính năng này",
+      "notification": "Bạn cần bật thông báo để nhận thông báo từ đơn hàng",
+      "photo": "Bạn cần bật quyền truy cập ảnh để sử dụng tính năng này"
+    },
+    "sucesss": {
+      "update": "Cập nhật thành công"
+    },
+    "title": {
+      "info": "Thông báo",
+      "warning": "Cảnh báo"
+    },
+    "warning": {
+      "delete": "Xóa bỏ",
+      "delete_message": "Xóa mục này?",
+      "sign_out": "Bạn có muốn đăng xuất?",
+      "un_save": {
+        "content": "Bạn có các thay đổi chưa lưu. \nBạn có chắc chắn để loại bỏ chúng?",
+        "discard": "Loại bỏ",
+        "dont_leave": "Tiếp tục chỉnh sửa",
+        "title": "Loại bỏ những thay đổi?"
+      }
+    }
+  },
+  "auth": {
+    "change_phone_number": "Thay đổi số điện thoại",
+    "confirm_password": "Xác nhận mật khẩu",
+    "dont_have_account": "Chưa có tài khoản?",
+    "dont_receive_otp": "Chưa nhận được mã",
+    "email": "Email",
+    "email_verification_message": "Vui lòng xác minh email của bạn trong hộp thư",
+    "enter_otp": "Nhập mã xác nhận",
+    "forgot_password": "Quên mật khẩu",
+    "have_account": "Đã có tài khoản?",
+    "invalid_phone": "Số điện thoại không hợp lệ",
+    "name": "Tên của bạn",
+    "name_validate": "Tên chỉ có thể chứa các chữ cái và dấu cách",
+    "new_password": "Mật khẩu mới",
+    "password": "Mật khẩu",
+    "password_confirmation": {
+      "min": "Mật khẩu phải có ít nhất {{value}} ký tự",
+      "title": "Xác nhận mật khẩu",
+      "validate": "Xác nhận mật khẩu không khớp"
+    },
+    "phone_exist": "Số điện thoại đã tồn tại",
+    "phone_number": "Số điện thoại",
+    "referral_code": "Mã giới thiệu",
+    "resend_otp": "Gửi lại",
+    "sign_in": "Đăng nhập",
+    "sign_in_now": "Đăng nhập",
+    "sign_up": "Đăng ký",
+    "sign_up_now": "Đăng ký",
+    "use_phone_number": "Sử dụng số điện thoại",
+    "use_username": "Sử dụng username",
+    "username": {
+      "title": "Username",
+      "validate": "Username chỉ có thể chứa các chữ cái và số"
+    },
+    "validate_new_email": "Nhập email mới của bạn",
+    "will_send_otp": "Chúng tôi sẽ gửi OTP đến điện thoại:"
+  },
+  "button": {
+    "add": "Thêm",
+    "cancel": "Hủy bỏ",
+    "change": "Thay đổi",
+    "check_out": "Tiếp tục",
+    "confirm": "Xác nhận",
+    "confirm_password": "Xác nhận mật khẩu",
+    "continue": "Tiếp tục",
+    "edit": "Chỉnh sửa",
+    "get_started": "Bắt đầu",
+    "new": "Mới",
+    "next": "Tiếp theo",
+    "no": "Không",
+    "ok": "Ok",
+    "open_settings": "Mở cài đặt",
+    "pay": "Thanh toán ",
+    "post": "Đăng",
+    "revise": "Sửa đổi",
+    "save": "Lưu",
+    "select_range": "Chọn phạm vi",
+    "send": "Gửi",
+    "show_all": "Tất cả",
+    "skip": "Bỏ qua",
+    "update": "Cập nhật",
+    "upload": "Tải lên"
+  },
+  "cart": {
+    "payment": {
+      "bank": "Tài khoản ngân hàng",
+      "card": "Thẻ tín dụng hoặc thẻ ghi nợ",
+      "paypal": "Paypal"
+    },
+    "success": {
+      "back": "Quay lại khóa học của tôi",
+      "success": "Thành công",
+      "thank": "Cảm ơn bạn đã thanh toán"
+    }
+  },
+  "codepush": {
+    "optional_ignore_button_label": "Bỏ qua",
+    "optional_install_button_abel": "Cập nhật",
+    "optional_update_message": "Có cập nhật nội dung mới, bạn có muốn cập nhật không?\n(Trong quá trình cập nhật, ứng dụng sẽ tự khởi động lại)",
+    "title": "Cập nhật",
+    "updating": "Đang cập nhật..."
+  },
+  "course": {
+    "buy": "Mua",
+    "buy_this_course": "Mua khóa học này",
+    "course_list": "Khóa học",
+    "description": "Mô tả",
+    "event": {
+      "end_date": {
+        "long": "Kết thúc",
+        "short": "Kết thúc"
+      },
+      "sessions": "Buổi",
+      "start_date": {
+        "long": "Bắt đầu",
+        "short": "Bắt đầu"
+      },
+      "tab": {
+        "current_events": "Hiện tại",
+        "upcoming_events": "Sắp tới"
+      }
+    },
+    "learn": "Học",
+    "lesson": {
+      "description": "Mô tả",
+      "done": "Xong!"
+    },
+    "lesson_number": "Bài học",
+    "my_course_list": "Khóa học của tôi",
+    "popular_course_list": "Khóa học phổ biến",
+    "show_in_cart": "Hiển thị trong giỏ hàng"
+  },
+  "error": {
+    "email": {
+      "invalid": "Email không hợp lệ"
+    },
+    "required": {
+      "input": "Vui lòng nhập",
+      "select": "Vui lòng chọn"
+    }
+  },
+  "feed": {
+    "add": {
+      "content_required": "Vui lòng nhập nội dung",
+      "placeholder": "Tạo bài viết mới...",
+      "required": "Vui lòng nhập nội dung hoặc tải phương tiện lên"
+    },
+    "comment": {
+      "placeholder": "Nói gì đó...",
+      "title": "Bình luận"
+    },
+    "filter": {
+      "channel": {
+        "check_all_title": "Tất cả các kênh",
+        "title": "Chọn kênh"
+      },
+      "posted_by": {
+        "list": {
+          "posted_by_me": "Đăng bởi tôi"
+        },
+        "title": "Đăng bởi"
+      },
+      "time": {
+        "title": "Thời gian"
+      }
+    },
+    "menu": {
+      "delete": {
+        "content": "Bạn có muốn xóa bài viết này?",
+        "title": "Xóa bài đăng"
+      },
+      "edit": "Chỉnh sửa bài đăng"
+    },
+    "search_placeholder": "Đăng bài"
+  },
+  "health": {
+    "calo_burned": "Calo đốt cháy",
+    "heart_rate": "Nhịp tim",
+    "moving": "Di chuyển",
+    "pai": "Pai",
+    "programs": "Chương trình",
+    "sleep": "Ngủ",
+    "steps_target": {
+      "title": "Số bước mục tiêu",
+      "unit": "Bước"
+    }
+  },
+  "home": {
+    "menu": {
+      "accounting": "Kế toán",
+      "course_list": "Khóa học",
+      "event_list": "Sự kiện",
+      "health_data": "Dữ liệu sức khỏe",
+      "health_program": "Chương trình sức khỏe",
+      "report": "Báo cáo"
+    }
+  },
+  "input": {
+    "placeholder": {
+      "input": "Nhập",
+      "select": "Chọn"
+    }
+  },
+  "language": {
+    "set": {
+      "en": "Tiếng Anh",
+      "th": "Thái Lan",
+      "vi": "Việt Nam"
+    },
+    "title": "Ngôn ngữ"
+  },
+  "menu_title": {
+    "about_us": "Về chúng tôi",
+    "language": "Ngôn ngữ",
+    "new_group": "Tạo nhóm mới",
+    "payment": "Thanh toán",
+    "setting_list": "Cài đặt",
+    "share": "Chia sẻ",
+    "sign_out": "Đăng xuất",
+    "support": "Hỗ trợ"
+  },
+  "message": {
+    "placeholder": "Gửi tin nhắn",
+    "search_placeholder": "Tìm kiếm ở đây..."
+  },
+  "notification": {
+    "tab": {
+      "general": "Tổng quan",
+      "remiders": "Nhắc nhở"
+    }
+  },
+  "otp": {
+    "enter_otp": "Vui lòng nhập mã OTP đã được gửi đến số điện thoại",
+    "invalid_otp": "Mã OTP không hợp lệ",
+    "resend_otp": "Gửi lại mã"
+  },
+  "payment": {
+    "add_card": "Thêm thẻ",
+    "card_holder": "Chủ thẻ",
+    "card_number": "Số thẻ",
+    "card_save": "Lưu thẻ",
+    "expiration_date": "Ngày hết hạn",
+    "save_card": "Lưu thẻ",
+    "security_code": "CSC"
+  },
+  "screen_title": {
+    "accounting_book_detail": {
+      "add": "Sổ kế toán mới",
+      "edit": "Chỉnh sửa sổ sách kế toán",
+      "view": "Chi tiết"
+    },
+    "accounting_book_list": "Sổ kế toán",
+    "accounting_event_list": "Sự kiện",
+    "accounting_list": "Kế toán",
+    "accounting_proposal_detail": "Đề xuất",
+    "accounting_proposal_list": "Đề xuất",
+    "accounting_tran_detail": {
+      "edit": "Sửa kế toán tran",
+      "view": "Chi tiết"
+    },
+    "accounting_tran_list": "Giao dịch",
+    "add_accounting_tran": "Giao dịch mới",
+    "add_card": "Thêm thẻ",
+    "add_or_edit_feed": {
+      "add": "Tạo bài viết",
+      "edit": "Chỉnh sửa bài viết"
+    },
+    "add_or_revise_accounting_proposal": {
+      "add": "Đề xuất mới",
+      "revise": "Sửa đổi đề xuất"
+    },
+    "camera": "chụp ảnh",
+    "card_list": "Danh sách thẻ",
+    "cart_list": "Giỏ hàng",
+    "cart_payment": "Thanh toán",
+    "course_detail": "Chi tiết khóa học",
+    "course_index": "Khóa học",
+    "course_list": "Tất cả các khóa học",
+    "edit_profile": "Chỉnh sửa thông tin",
+    "event_detail": "Chi tiết sự kiện",
+    "event_list": "Sự kiện",
+    "feed_detail": "Xem bài viết",
+    "forgot_password": "Quên mật khẩu",
+    "health_data": "Sức khỏe",
+    "health_data_statistic": "Thống kê",
+    "health_program_detail": "Chi tiết chương trình",
+    "health_program_history_list": "Lịch sử chương trình sức khỏe",
+    "health_program_list": "Chương trình sức khỏe",
+    "home": "Trang chủ",
+    "image_picker": "Chọn ảnh",
+    "lesson_detail": "Chi tiết bài học",
+    "media_list": "Danh sách media",
+    "my_course_list": "Khóa học của tôi",
+    "new_password": "Mật khẩu mới",
+    "notification_list": "Thông báo",
+    "payment_history_list": "lịch sử thanh toán",
+    "select_channel": "Chọn kênh",
+    "sign_in": "Đăng nhập",
+    "update_email": "Thay đổi email",
+    "verify_otp": "xác minh OTP"
+  },
+  "tab_title": {
+    "feed_list": "Bản tin",
+    "home": "Trang chủ",
+    "menu_list": "Cá nhân",
+    "message_list": "Tin nhắn"
+  },
+  "util": {
+    "all": "Tất cả",
+    "by": "Bởi",
+    "id": "ID"
+  }
+}

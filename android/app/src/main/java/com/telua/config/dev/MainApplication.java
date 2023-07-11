@@ -1,4 +1,4 @@
-package com.tconfig;
+package com.telua.config;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
