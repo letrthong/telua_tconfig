@@ -29,7 +29,6 @@ const _styles = StyleSheet.create({
 const Tabs = createBottomTabNavigator<MainTabParamList>();
 
 const TabBarIconContainer = ({
-  focused,
   children,
 }: TabBarIconProps & {children: ReactNode}) => (
   <View style={[AppStyles.center, _styles.tabBarIconContainer]}>
@@ -71,17 +70,12 @@ const MainTab = () => {
     <Tabs.Navigator
       backBehavior="initialRoute"
       screenOptions={{
-        headerTitleStyle: styles.headerTitle,
         tabBarStyle: {
           height: 50 + bottom,
         },
-        headerShadowVisible: false,
-        headerStyle: AppStyles.background,
-        headerTitleAlign: 'left',
         tabBarLabelPosition: 'below-icon',
         tabBarLabel,
         tabBarHideOnKeyboard: Platform.OS === 'android',
-        headerShown: false,
       }}>
       <Tabs.Screen
         component={HomeScreen}

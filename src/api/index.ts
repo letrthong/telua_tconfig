@@ -1,7 +1,7 @@
 import {create} from 'apisauce';
 import type {Method} from 'axios';
 
-const baseURL = 'https://telua.co/services/v1/';
+const baseURL = 'https://telua.co/services/';
 const Api = create({baseURL, timeout: 15000});
 
 export const setApiToken = (token?: string | null) => {
@@ -15,12 +15,10 @@ export const setApiToken = (token?: string | null) => {
 export const Links = {
   config: {
     getDefaultLanguage: 'v1/community/environment/getDefaultLanguage',
-  }
+  },
 };
 
-export const showAlertLinks: {method: Method; url: string | undefined}[] = [
-];
-export const noSignOutLinks: {method: string; url: string | undefined}[] = [
-];
+export const showAlertLinks: {method: Method; url: string | undefined}[] = [];
+export const noSignOutLinks: {method: string; url: string | undefined}[] = [];
 
 export default Api;

@@ -1,63 +1,4 @@
 {
-  "accounting": {
-    "book": {
-      "description": "Description",
-      "detail": "Detail",
-      "menu": {
-        "add_tran": "Add tran",
-        "delete": "Delete",
-        "edit": "Edit",
-        "show": "Show"
-      },
-      "name": "Book name",
-      "type": "Book type"
-    },
-    "event": {
-      "total_transactions": "Transactions"
-    },
-    "menu": {
-      "accounting_book": "Accounting book",
-      "accounting_trans": "Accounting trans",
-      "events": "Events",
-      "proposal": "Proposals"
-    },
-    "proposal": {
-      "amount": "Amount",
-      "content": "Subject",
-      "created_at": "Created at",
-      "created_by": "Created by",
-      "description": "Description",
-      "due_date": "Due date",
-      "event": "Event",
-      "note": "Note",
-      "related_to": "Related to",
-      "status": "Status",
-      "to": "To",
-      "type": {
-        "accepted": "Accepted",
-        "declined": "Declined",
-        "open": "Open",
-        "revised": "Revised"
-      }
-    },
-    "tran": {
-      "amount": "Credit/Debit amount",
-      "balance": "Balance",
-      "book_id": "Book id",
-      "credit_or_debit": {
-        "menu": {
-          "C": "Credit",
-          "D": "Debit"
-        },
-        "title": "Credit or debit"
-      },
-      "description": "Description",
-      "related": "Related",
-      "related_event": "Related event",
-      "transaction_date": "Transaction date",
-      "transaction_id": "Transaction id"
-    }
-  },
   "alert": {
     "error": {
       "default": "An error occurred, please try again later",
@@ -95,43 +36,6 @@
       }
     }
   },
-  "auth": {
-    "change_phone_number": "Change phone number",
-    "confirm_password": "Confirm password",
-    "dont_have_account": "Don't have an account?",
-    "dont_receive_otp": "If you didn't receive a code",
-    "email": "Email",
-    "email_verification_message": "Please verify your email in your mailbox",
-    "enter_otp": "Enter verification code",
-    "forgot_password": "Forgot password",
-    "have_account": "Already have an account?",
-    "invalid_phone": "Invalid phone number",
-    "name": "Your name",
-    "name_validate": "Name can only contains letters and spaces",
-    "new_password": "New password",
-    "password": "Password",
-    "password_confirmation": {
-      "min": "Password must be at least {{value}} characters",
-      "title": "Confirm password",
-      "validate": "Confirm password does not match"
-    },
-    "phone_exist": "Phone number already exists",
-    "phone_number": "Phone number",
-    "referral_code": "Referral code",
-    "resend_otp": "Resend",
-    "sign_in": "Sign in",
-    "sign_in_now": "Sign in now",
-    "sign_up": "Sign up",
-    "sign_up_now": "Sign up now",
-    "use_phone_number": "Use phone number",
-    "use_username": "Use username",
-    "username": {
-      "title": "Username",
-      "validate": "Username can only contains letters and numbers"
-    },
-    "validate_new_email": "Enter your new email",
-    "will_send_otp": "We will send OTP to your phone:"
-  },
   "button": {
     "add": "Add",
     "cancel": "Cancel",
@@ -158,55 +62,6 @@
     "update": "Update",
     "upload": "Upload"
   },
-  "cart": {
-    "payment": {
-      "bank": "Bank Transfer",
-      "card": "Credit Card Or Debit Card",
-      "paypal": "Paypal"
-    },
-    "success": {
-      "back": "Back to my courses",
-      "success": "Success",
-      "thank": "Thank you for your payment"
-    }
-  },
-  "codepush": {
-    "optional_ignore_button_label": "Ignore",
-    "optional_install_button_abel": "Update",
-    "optional_update_message": "There is a new version available, do you want to update?",
-    "title": "New update",
-    "updating": "Updating..."
-  },
-  "course": {
-    "buy": "Buy",
-    "buy_this_course": "Buy this course",
-    "course_list": "Courses",
-    "description": "Description",
-    "event": {
-      "end_date": {
-        "long": "End date",
-        "short": "End"
-      },
-      "sessions": "Sessions",
-      "start_date": {
-        "long": "Start date",
-        "short": "Start"
-      },
-      "tab": {
-        "current_events": "Current events",
-        "upcoming_events": "Upcoming events"
-      }
-    },
-    "learn": "Learn",
-    "lesson": {
-      "description": "Description",
-      "done": "Done!"
-    },
-    "lesson_number": "Lessons",
-    "my_course_list": "My courses",
-    "popular_course_list": "Popular courses",
-    "show_in_cart": "Show in cart"
-  },
   "error": {
     "email": {
       "invalid": "Email is invalid"
@@ -214,62 +69,6 @@
     "required": {
       "input": "Please enter",
       "select": "Please select"
-    }
-  },
-  "feed": {
-    "add": {
-      "content_required": "Please enter content",
-      "placeholder": "Type new posting ...",
-      "required": "Please enter content or upload media"
-    },
-    "comment": {
-      "placeholder": "Say something...",
-      "title": "Comments"
-    },
-    "filter": {
-      "channel": {
-        "check_all_title": "All channel",
-        "title": "Select channel"
-      },
-      "posted_by": {
-        "list": {
-          "posted_by_me": "Posted by me"
-        },
-        "title": "Posted by"
-      },
-      "time": {
-        "title": "Time"
-      }
-    },
-    "menu": {
-      "delete": {
-        "content": "Do you want to delete this post?",
-        "title": "Delete post"
-      },
-      "edit": "Edit post"
-    },
-    "search_placeholder": "Type new posting..."
-  },
-  "health": {
-    "calo_burned": "Calo Burned",
-    "heart_rate": "Heart rate",
-    "moving": "Moving",
-    "pai": "Pai",
-    "programs": "Programs",
-    "sleep": "Sleep",
-    "steps_target": {
-      "title": "Steps target",
-      "unit": "Steps"
-    }
-  },
-  "home": {
-    "menu": {
-      "accounting": "Accounting",
-      "course_list": "Courses",
-      "event_list": "Events",
-      "health_data": "Health data",
-      "health_program": "Health program",
-      "report": "Report"
     }
   },
   "input": {
@@ -281,106 +80,13 @@
   "language": {
     "set": {
       "en": "English",
-      "th": "Thai",
       "vi": "Vietnamese"
     },
     "title": "Language"
   },
-  "menu_title": {
-    "about_us": "About us",
-    "language": "Language",
-    "new_group": "New group",
-    "payment": "Payment",
-    "setting_list": "Settings",
-    "share": "Share",
-    "sign_out": "Sign out",
-    "support": "Support"
-  },
-  "message": {
-    "placeholder": "Send Message",
-    "search_placeholder": "Search here..."
-  },
-  "notification": {
-    "tab": {
-      "general": "General",
-      "remiders": "Remiders"
-    }
-  },
-  "otp": {
-    "enter_otp": "Please enter the OTP that was sent to the phone number",
-    "invalid_otp": "OTP is invalid",
-    "resend_otp": "Resend"
-  },
-  "payment": {
-    "add_card": "Add card",
-    "card_holder": "Card holder",
-    "card_number": "Card number",
-    "card_save": "Card save",
-    "expiration_date": "Expiration date",
-    "save_card": "Save card",
-    "security_code": "Security code"
-  },
-  "screen_title": {
-    "accounting_book_detail": {
-      "add": "New accounting book",
-      "edit": "Edit accounting book",
-      "view": "Detail"
-    },
-    "accounting_book_list": "Accounting book",
-    "accounting_event_list": "Events",
-    "accounting_list": "Accounting",
-    "accounting_proposal_detail": "Proposal",
-    "accounting_proposal_list": "Proposals",
-    "accounting_tran_detail": {
-      "edit": "Edit accounting tran",
-      "view": "Detail"
-    },
-    "accounting_tran_list": "Accounting trans",
-    "add_accounting_tran": "New accounting tran",
-    "add_card": "Add card",
-    "add_or_edit_feed": {
-      "add": "New posting",
-      "edit": "Edit post"
-    },
-    "add_or_revise_accounting_proposal": {
-      "add": "New proposal",
-      "revise": "Revise proposal"
-    },
-    "camera": "Chụp ảnh",
-    "card_list": "Payment",
-    "cart_list": "Cart",
-    "cart_payment": "Payment",
-    "course_detail": "Course detail",
-    "course_index": "Courses",
-    "course_list": "All courses",
-    "edit_profile": "Edit profile",
-    "event_detail": "Event detail",
-    "event_list": "Events",
-    "feed_detail": "Post view",
-    "forgot_password": "Forgot password",
-    "health_data": "Health",
-    "health_data_statistic": "Statistic",
-    "health_program_detail": "Program detail",
-    "health_program_history_list": "Health history",
-    "health_program_list": "Health programs",
-    "home": "Home",
-    "image_picker": "Chọn ảnh",
-    "lesson_detail": "Lesson",
-    "media_list": "Media view",
-    "my_course_list": "My courses",
-    "new_password": "New password",
-    "notification_list": "Notifications",
-    "payment_history_list": "Payment history",
-    "select_channel": "Select channel",
-    "sign_in": "Sign in",
-    "update_email": "Change email",
-    "verify_otp": "Verify OTP"
-  },
+  "screen_title": {},
   "tab_title": {
-    "feed_list": "Newsfeed",
-    "home": "Home",
-    "menu_list": "Profile",
-    "message_list": "Messages"
+    "home": "Home"
   },
   "util": {
     "all": "All",
