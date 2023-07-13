@@ -71,6 +71,13 @@
       "select": "Vui lòng chọn"
     }
   },
+  "home": {
+    "menu": {
+      "scan": "Quét",
+      "setting": "Cài đặt"
+    },
+    "wifi_was_saved": "Wifi đã được lưu, vui lòng quên wifi hiện tại"
+  },
   "input": {
     "placeholder": {
       "input": "Nhập",
@@ -91,6 +98,8 @@
   "util": {
     "all": "Tất cả",
     "by": "Bởi",
-    "id": "ID"
+    "id": "ID",
+    "error": "Lỗi",
+    "success": "Thành công"
   }
 }

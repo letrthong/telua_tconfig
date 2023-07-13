@@ -71,6 +71,13 @@
       "select": "Please select"
     }
   },
+  "home": {
+    "menu": {
+      "scan": "Scan",
+      "setting": "Setting"
+    },
+    "wifi_was_saved": "Wifi is saved, please forget the current wifi"
+  },
   "input": {
     "placeholder": {
       "input": "Enter",
@@ -91,6 +98,8 @@
   "util": {
     "all": "All",
     "by": "By",
-    "id": "ID"
+    "error": "Error",
+    "id": "ID",
+    "success": "Success"
   }
 }
