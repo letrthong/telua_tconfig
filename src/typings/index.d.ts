@@ -1,8 +1,15 @@
 type TRouteStates = 'SPLASH' | 'MAIN';
 
+type TSetting = {
+  ssid: string;
+  password: string;
+  url_portal: string;
+};
+
 type StoreState = {
   routeState: TRouteStates;
   language: TLanguage;
+  setting: TSetting;
 };
 
 type TPageParams = Partial<{

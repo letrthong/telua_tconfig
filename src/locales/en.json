@@ -17,7 +17,7 @@
       "notification": "You need to enable notification permission to receive notification",
       "photo": "You need to enable photo permission to use this feature"
     },
-    "sucesss": {
+    "success": {
       "update": "Update successfully"
     },
     "title": {
@@ -72,9 +72,10 @@
     }
   },
   "home": {
+    "enter_config": "Please update the configuration",
     "menu": {
       "scan": "Scan",
-      "setting": "Setting"
+      "setting": "Settings"
     },
     "wifi_was_saved": "Wifi is saved, please forget the current wifi"
   },
@@ -91,7 +92,14 @@
     },
     "title": "Language"
   },
-  "screen_title": {},
+  "screen_title": {
+    "setting": "Settings"
+  },
+  "setting": {
+    "password": "Password",
+    "ssid": "Wifi name",
+    "url_portal": "Portal URL"
+  },
   "tab_title": {
     "home": "Home"
   },

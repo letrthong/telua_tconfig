@@ -6,11 +6,13 @@ import {fetchLanguageApi} from 'api/config';
 import 'locales';
 import i18n from 'locales';
 import React, {useEffect} from 'react';
+import {useTranslation} from 'react-i18next';
 import {StatusBar} from 'react-native';
 import BootSplash from 'react-native-bootsplash';
 import FlashMessage from 'react-native-flash-message';
 import 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import SettingScreen from 'screens/setting';
 import SplashScreen from 'screens/splash';
 import useStore, {useHydration} from 'stores';
 import type {MainTabParamList, RootStackParamList} from 'typings/navigation';
@@ -23,6 +25,7 @@ const onReady = () => BootSplash.hide({fade: true});
 
 const App = () => {
   const hydrated = useHydration();
+  const {t} = useTranslation();
   const {routeState, language} = useStore();
 
   useEffect(() => {
@@ -62,6 +65,13 @@ const App = () => {
                   name="Main"
                   options={{
                     headerShown: false,
+                  }}
+                />
+                <RootStack.Screen
+                  component={SettingScreen}
+                  name="Setting"
+                  options={{
+                    title: t('screen_title.setting'),
                   }}
                 />
               </RootStack.Group>

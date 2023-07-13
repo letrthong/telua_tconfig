@@ -17,7 +17,7 @@
       "notification": "Bạn cần bật thông báo để nhận thông báo từ đơn hàng",
       "photo": "Bạn cần bật quyền truy cập ảnh để sử dụng tính năng này"
     },
-    "sucesss": {
+    "success": {
       "update": "Cập nhật thành công"
     },
     "title": {
@@ -72,6 +72,7 @@
     }
   },
   "home": {
+    "enter_config": "Vui lòng cập nhật cấu hình",
     "menu": {
       "scan": "Quét",
       "setting": "Cài đặt"
@@ -91,15 +92,22 @@
     },
     "title": "Ngôn ngữ"
   },
-  "screen_title": {},
+  "screen_title": {
+    "setting": "Cài đặt"
+  },
+  "setting": {
+    "password": "Mật khẩu",
+    "ssid": "Tên Wifi",
+    "url_portal": "URL Portal"
+  },
   "tab_title": {
     "home": "Trang chủ"
   },
   "util": {
     "all": "Tất cả",
     "by": "Bởi",
-    "id": "ID",
     "error": "Lỗi",
+    "id": "ID",
     "success": "Thành công"
   }
 }

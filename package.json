@@ -11,6 +11,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@codler/react-native-keyboard-aware-scroll-view": "^2.0.1",
     "@react-native-community/hooks": "^3.0.0",
     "@react-native-tethering/wifi": "^1.0.0",
     "@react-navigation/bottom-tabs": "^6.5.8",
@@ -21,6 +22,7 @@
     "apisauce": "^3.0.1",
     "i18next": "^23.2.11",
     "react": "18.2.0",
+    "react-hook-form": "^7.45.1",
     "react-i18next": "^13.0.2",
     "react-native": "0.71.12",
     "react-native-bootsplash": "^4.7.5",

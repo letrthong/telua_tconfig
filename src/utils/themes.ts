@@ -128,32 +128,14 @@ export const light = createTheme({
       ],
       containerStyle: [noFullWidth && {alignSelf: 'center'}],
     }),
-    Input: ({errorMessage}) => ({
-      errorStyle: {display: 'none'},
-      inputStyle: [
-        FontStyles.regular,
-        {
-          height: ButtonHeights.medium,
-          borderRadius: BorderRadiuses.large,
-          paddingHorizontal: Gap,
-          fontSize: FontSizes.large,
-        },
-      ],
-      labelStyle: [{color: '#4F4F51'}],
-      containerStyle: [
-        {
-          paddingHorizontal: 0,
-          borderColor: Colors.primaryLight,
-          borderWidth: 1,
-          borderRadius: BorderRadiuses.large,
-        },
-        !!errorMessage && {
-          borderColor: Colors.error,
-        },
-      ],
-      inputContainerStyle: {borderBottomWidth: 0},
+    Input: {
+      inputStyle: [FontStyles.regular, {color: Colors.black}],
+      labelStyle: {color: Colors.black},
       placeholderTextColor: Colors.grey3,
-    }),
+      containerStyle: {
+        marginBottom: Gap,
+      },
+    },
     Overlay: {
       statusBarTranslucent: true,
       overlayStyle: {

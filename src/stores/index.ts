@@ -11,14 +11,21 @@ const storage = new MMKVLoader()
 
 const nonePersistedKeys: (keyof StoreState)[] = ['routeState'];
 
+const defaultUrlPortal = 'http://192.168.0.1';
+
 const initialStoreState: StoreState = {
   routeState: 'SPLASH',
   language: 'vi',
+  setting: {
+    ssid: '',
+    password: '',
+    url_portal: defaultUrlPortal,
+  },
 };
 
 const useStore = create<StoreState>()(
   persist(_ => initialStoreState, {
-    name: 'records',
+    name: 'tconfigs',
     version: 0,
     storage: createJSONStorage(() => storage as unknown as StateStorage),
     partialize: state =>
@@ -55,6 +62,10 @@ export const setRouteState = (route: TRouteStates) => {
 
 export const setLanguage = (language: TLanguage) => {
   useStore.setState({language});
+};
+
+export const setSetting = (setting: TSetting) => {
+  useStore.setState({setting});
 };
 
 export default useStore;

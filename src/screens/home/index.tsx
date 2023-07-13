@@ -3,7 +3,7 @@ import {Text} from '@rneui/themed';
 import Search from 'assets/svgs/search.svg';
 import Setting from 'assets/svgs/setting.svg';
 import LoadingModal from 'components/atoms/loading-modal';
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Alert,
@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import {SvgProps} from 'react-native-svg';
 import WifiManager from 'react-native-wifi-reborn';
+import useStore from 'stores';
 import {MainTabScreenProps} from 'typings/navigation';
 import {IconSizes} from 'utils';
 import AppStyles from 'utils/styles';
@@ -43,17 +44,32 @@ const Item = ({Icon, title, onPress}: ItemProps) => {
   );
 };
 
-const ssid = 'F 5G';
-const password = '999999999';
-const url = 'http://192.168.0.1';
-const checkCurrentSSIDIntervalTime = 2000;
-const maxCheckCurrentSSIDIntervalTimes = 5;
+const checkCurrentSSIDIntervalTime = 1000;
+const maxCheckCurrentSSIDIntervalTimes = 10;
 
 export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
   const {t} = useTranslation();
   const [loading, setLoading] = useState(false);
+  const {setting} = useStore();
+
+  useEffect(() => {
+    checkConfig();
+  }, []);
+
+  const checkConfig = () => {
+    if (!setting.ssid || !setting.password || !setting.url_portal) {
+      Alert.alert(t('util.error'), t('home.enter_config'));
+      onPressSetting();
+      return false;
+    }
+    return true;
+  };
 
   const onPressScan = async () => {
+    if (!checkConfig()) {
+      return;
+    }
+
     setLoading(true);
     if (Platform.OS === 'android') {
       const granted = await PermissionsAndroid.request(
@@ -63,9 +79,9 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
         try {
           try {
             const currentSSID = await WifiManager.getCurrentWifiSSID();
-            if (currentSSID === ssid) {
+            if (currentSSID === setting.ssid) {
               setLoading(false);
-              Linking.openURL(url);
+              Linking.openURL(setting.url_portal);
               return;
             }
           } catch (error) {}
@@ -94,8 +110,8 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
           /** Need disconnect from current network to connect to new network */
           await TetheringManager.disconnectFromNetwork();
           await TetheringManager.connectToNetwork({
-            ssid,
-            password,
+            ssid: setting.ssid,
+            password: setting.password,
           });
           try {
             /** If user don't press save button, next code will not be executed,
@@ -103,8 +119,8 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
              */
             setLoading(false);
             await TetheringManager.saveNetworkInDevice({
-              ssid,
-              password,
+              ssid: setting.ssid,
+              password: setting.password,
             });
           } catch (error) {}
           /** Contiunue show loading modal if user press save wifi button */
@@ -125,8 +141,8 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
                 const currentSSID = await WifiManager.getCurrentWifiSSID();
                 setLoading(false);
                 clearInterval(checkCurrentSSIDInterval);
-                if (currentSSID === ssid) {
-                  Linking.openURL(url);
+                if (currentSSID === setting.ssid) {
+                  Linking.openURL(setting.url_portal);
                 } else {
                   Alert.alert(t('util.error'), t('home.wifi_was_saved'));
                 }
@@ -145,7 +161,8 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
       setLoading(false);
     }
   };
-  const onPressSetting = () => {};
+
+  const onPressSetting = () => navigation.navigate('Setting');
 
   return (
     <View style={[AppStyles.flex1, AppStyles.padding]}>
