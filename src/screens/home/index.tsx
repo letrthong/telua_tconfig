@@ -57,7 +57,7 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
   }, []);
 
   const checkConfig = () => {
-    if (!setting.ssid || !setting.password || !setting.url_portal) {
+    if (!setting.prefix || !setting.password || !setting.url_portal) {
       Alert.alert(t('util.error'), t('home.enter_config'));
       onPressSetting();
       return false;
@@ -79,7 +79,7 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
         try {
           try {
             const currentSSID = await WifiManager.getCurrentWifiSSID();
-            if (currentSSID === setting.ssid) {
+            if (currentSSID === setting.prefix) {
               setLoading(false);
               Linking.openURL(setting.url_portal);
               return;
@@ -110,7 +110,7 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
           /** Need disconnect from current network to connect to new network */
           await TetheringManager.disconnectFromNetwork();
           await TetheringManager.connectToNetwork({
-            ssid: setting.ssid,
+            ssid: setting.prefix,
             password: setting.password,
           });
           try {
@@ -119,7 +119,7 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
              */
             setLoading(false);
             await TetheringManager.saveNetworkInDevice({
-              ssid: setting.ssid,
+              ssid: setting.prefix,
               password: setting.password,
             });
           } catch (error) {}
@@ -141,7 +141,7 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
                 const currentSSID = await WifiManager.getCurrentWifiSSID();
                 setLoading(false);
                 clearInterval(checkCurrentSSIDInterval);
-                if (currentSSID === setting.ssid) {
+                if (currentSSID === setting.prefix) {
                   Linking.openURL(setting.url_portal);
                 } else {
                   Alert.alert(t('util.error'), t('home.wifi_was_saved'));
@@ -162,7 +162,7 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
     }
   };
 
-  const onPressSetting = () => navigation.navigate('Setting');
+  const onPressSetting = () => navigation.navigate('SettingList');
 
   return (
     <View style={[AppStyles.flex1, AppStyles.padding]}>

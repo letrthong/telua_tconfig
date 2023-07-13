@@ -15,9 +15,9 @@ const defaultUrlPortal = 'http://192.168.0.1';
 
 const initialStoreState: StoreState = {
   routeState: 'SPLASH',
-  language: 'vi',
+  language: undefined,
   setting: {
-    ssid: '',
+    prefix: '',
     password: '',
     url_portal: defaultUrlPortal,
   },
@@ -26,7 +26,7 @@ const initialStoreState: StoreState = {
 const useStore = create<StoreState>()(
   persist(_ => initialStoreState, {
     name: 'tconfigs',
-    version: 0,
+    version: 1,
     storage: createJSONStorage(() => storage as unknown as StateStorage),
     partialize: state =>
       Object.fromEntries(

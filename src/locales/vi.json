@@ -93,11 +93,16 @@
     "title": "Ngôn ngữ"
   },
   "screen_title": {
-    "setting": "Cài đặt"
+    "setting_config": "Cấu hình",
+    "setting_list": "Cài đặt"
   },
   "setting": {
+    "menu": {
+      "config": "Cấu hình",
+      "language": "Ngôn ngữ"
+    },
     "password": "Mật khẩu",
-    "ssid": "Tên Wifi",
+    "prefix": "Prefix",
     "url_portal": "URL Portal"
   },
   "tab_title": {

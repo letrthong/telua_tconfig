@@ -93,11 +93,16 @@
     "title": "Language"
   },
   "screen_title": {
-    "setting": "Settings"
+    "setting_config": "Configurations",
+    "setting_list": "Settings"
   },
   "setting": {
+    "menu": {
+      "config": "Configurations",
+      "language": "Language"
+    },
     "password": "Password",
-    "ssid": "Wifi name",
+    "prefix": "Prefix",
     "url_portal": "Portal URL"
   },
   "tab_title": {

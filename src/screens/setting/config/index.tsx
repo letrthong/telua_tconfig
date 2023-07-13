@@ -12,9 +12,9 @@ import Space from 'components/atoms/space';
 import {showMessage} from 'react-native-flash-message';
 import {RootStackScreenProps} from 'typings/navigation';
 
-export default function SettingScreen({
+export default function SettingConfigScreen({
   navigation,
-}: RootStackScreenProps<'Setting'>) {
+}: RootStackScreenProps<'SettingConfig'>) {
   const {bottom} = useSafeAreaInsets();
   const {t} = useTranslation();
   const {setting} = useStore();
@@ -30,7 +30,7 @@ export default function SettingScreen({
 
   const onSubmit = (data: TSetting) => {
     setSetting({
-      ssid: data.ssid.trim(),
+      prefix: data.prefix.trim(),
       password: data.password,
       url_portal: data.url_portal.trim(),
     });
@@ -51,20 +51,21 @@ export default function SettingScreen({
       ]}>
       <Controller
         control={control}
-        name="ssid"
+        name="prefix"
         render={({field: {onChange, onBlur, value, ref}}) => (
           <Input
             ref={ref}
-            errorMessage={errors.ssid?.message}
-            placeholder={getInputPlacehoder(t('setting.ssid'))}
+            errorMessage={errors.prefix?.message}
+            placeholder={getInputPlacehoder(t('setting.prefix'))}
             value={value}
             onBlur={onBlur}
             onChangeText={onChange}
-            label={t('setting.ssid')}
+            label={t('setting.prefix')}
           />
         )}
         rules={{
-          validate: value => !!value.trim() || getInputError(t('setting.ssid')),
+          validate: value =>
+            !!value.trim() || getInputError(t('setting.prefix')),
         }}
       />
       <Controller

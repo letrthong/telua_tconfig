@@ -12,13 +12,14 @@ import BootSplash from 'react-native-bootsplash';
 import FlashMessage from 'react-native-flash-message';
 import 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import SettingScreen from 'screens/setting';
 import SplashScreen from 'screens/splash';
 import useStore, {useHydration} from 'stores';
 import type {MainTabParamList, RootStackParamList} from 'typings/navigation';
 import {Colors, light, navigationTheme} from 'utils/themes';
 import MainTab from './MainTab';
 import {navigationRef} from './RootNavigation';
+import SettingListScreen from 'screens/setting/list';
+import SettingConfigScreen from 'screens/setting/config';
 
 const RootStack = createStackNavigator<RootStackParamList & MainTabParamList>();
 const onReady = () => BootSplash.hide({fade: true});
@@ -33,8 +34,10 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    i18n.changeLanguage(language);
-    Api.setHeader('Accept-Language', language);
+    if (language) {
+      i18n.changeLanguage(language);
+      Api.setHeader('Accept-Language', language);
+    }
   }, [language]);
 
   return (
@@ -68,10 +71,17 @@ const App = () => {
                   }}
                 />
                 <RootStack.Screen
-                  component={SettingScreen}
-                  name="Setting"
+                  component={SettingListScreen}
+                  name="SettingList"
                   options={{
-                    title: t('screen_title.setting'),
+                    title: t('screen_title.setting_list'),
+                  }}
+                />
+                <RootStack.Screen
+                  component={SettingConfigScreen}
+                  name="SettingConfig"
+                  options={{
+                    title: t('screen_title.setting_config'),
                   }}
                 />
               </RootStack.Group>

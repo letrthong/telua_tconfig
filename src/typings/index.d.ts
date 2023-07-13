@@ -1,14 +1,14 @@
 type TRouteStates = 'SPLASH' | 'MAIN';
 
 type TSetting = {
-  ssid: string;
+  prefix: string;
   password: string;
   url_portal: string;
 };
 
 type StoreState = {
   routeState: TRouteStates;
-  language: TLanguage;
+  language?: TLanguage;
   setting: TSetting;
 };
 
