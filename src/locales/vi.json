@@ -77,6 +77,7 @@
       "scan": "Quét",
       "setting": "Cài đặt"
     },
+    "no_match": "Không tìm thấy wifi phù hợp",
     "wifi_was_saved": "Wifi đã được lưu, vui lòng quên wifi hiện tại"
   },
   "input": {
@@ -113,6 +114,7 @@
     "by": "Bởi",
     "error": "Lỗi",
     "id": "ID",
+    "info": "Thông báo",
     "success": "Thành công"
   }
 }

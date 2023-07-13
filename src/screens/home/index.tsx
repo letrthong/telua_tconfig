@@ -18,7 +18,7 @@ import {SvgProps} from 'react-native-svg';
 import WifiManager from 'react-native-wifi-reborn';
 import useStore from 'stores';
 import {MainTabScreenProps} from 'typings/navigation';
-import {IconSizes} from 'utils';
+import {IconSizes, getInputError} from 'utils';
 import AppStyles from 'utils/styles';
 import {Colors} from 'utils/themes';
 
@@ -58,7 +58,7 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
 
   const checkConfig = () => {
     if (!setting.prefix || !setting.password || !setting.url_portal) {
-      Alert.alert(t('util.error'), t('home.enter_config'));
+      Alert.alert(t('util.info'), t('home.enter_config'));
       onPressSetting();
       return false;
     }
@@ -66,99 +66,125 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
   };
 
   const onPressScan = async () => {
-    if (!checkConfig()) {
+    if (!checkConfig() || Platform.OS !== 'android') {
+      return;
+    }
+
+    if (Platform.OS !== 'android') {
       return;
     }
 
     setLoading(true);
-    if (Platform.OS === 'android') {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    );
+    if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+      setLoading(false);
+      Alert.alert(t('util.error'), t('alert.permission.location'));
+      return;
+    }
+
+    try {
+      const isWifiEnabled = await TetheringManager.isWifiEnabled();
+      if (!isWifiEnabled) {
+        // TODO: if user don't press enable wifi button,
+        // next code will bot be executed,
+        // except next time user press enable button, this (previous) code will be executed,
+
+        /** In android 10 and above, you cannot enable WiFi programmatically,
+         * so a popup will be shown to the user to enable it manually.
+         * If user don't press enable button, next code will not be executed,
+         * except next time user press enable wifi button,
+         * this (previous) code will be executed,
+         * so we need hide loading modal here
+         */
+        setLoading(false);
+        await TetheringManager.setWifiEnabled();
+      }
+      /** Contiunue show loading modal if user press enable wifi button */
+      setLoading(true);
+
+      const wifiList = await TetheringManager.getWifiNetworks(true);
+      const matchedWifiList = wifiList.filter(wifi =>
+        wifi.ssid.toLocaleLowerCase().startsWith(setting.prefix),
       );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        try {
+      if (!matchedWifiList.length) {
+        setLoading(false);
+        Alert.alert(t('util.error'), t('home.no_match'));
+        return;
+      }
+
+      // TODO: if new network was saved and has current network,
+      // can not disconnect from current network
+
+      /** Need disconnect from current network to connect to new network */
+      await TetheringManager.disconnectFromNetwork();
+      let hasValidWifi = false;
+      for await (const mathchedWifi of matchedWifiList) {
+        const mathchedWifiResult = await new Promise(async resolve => {
           try {
-            const currentSSID = await WifiManager.getCurrentWifiSSID();
-            if (currentSSID === setting.prefix) {
-              setLoading(false);
-              Linking.openURL(setting.url_portal);
-              return;
-            }
-          } catch (error) {}
-
-          const isWifiEnabled = await TetheringManager.isWifiEnabled();
-          if (!isWifiEnabled) {
-            // TODO: if user don't press enable wifi button,
-            // next code will bot be executed,
-            // except next time user press enable button, this (previous) code will be executed,
-
-            /** In android 10 and above, you cannot enable WiFi programmatically,
-             * so a popup will be shown to the user to enable it manually.
-             * If user don't press enable button, next code will not be executed,
-             * except next time user press enable wifi button,
-             * this (previous) code will be executed,
-             * so we need hide loading modal here
-             */
-            setLoading(false);
-            await TetheringManager.setWifiEnabled();
-          }
-          /** Contiunue show loading modal if user press enable wifi button */
-          setLoading(true);
-          // TODO: if new network was saved and has current network,
-          // can not disconnect from current network
-
-          /** Need disconnect from current network to connect to new network */
-          await TetheringManager.disconnectFromNetwork();
-          await TetheringManager.connectToNetwork({
-            ssid: setting.prefix,
-            password: setting.password,
-          });
-          try {
-            /** If user don't press save button, next code will not be executed,
-             * so we need hide loading modal here
-             */
-            setLoading(false);
-            await TetheringManager.saveNetworkInDevice({
-              ssid: setting.prefix,
+            await TetheringManager.connectToNetwork({
+              ssid: mathchedWifi.ssid,
               password: setting.password,
             });
-          } catch (error) {}
-          /** Contiunue show loading modal if user press save wifi button */
-          setLoading(true);
-
-          let checkCurrentSSIDIntervalTimes = 0;
-          const checkCurrentSSIDInterval = setInterval(async () => {
-            if (
-              checkCurrentSSIDIntervalTimes >= maxCheckCurrentSSIDIntervalTimes
-            ) {
+            try {
+              /** If user don't press save button, next code will not be executed,
+               * so we need hide loading modal here
+               */
               setLoading(false);
-              clearInterval(checkCurrentSSIDInterval);
-              Alert.alert(t('util.error'), t('alert.error.default'));
-              return;
-            } else {
-              checkCurrentSSIDIntervalTimes++;
-              try {
-                const currentSSID = await WifiManager.getCurrentWifiSSID();
+              await TetheringManager.saveNetworkInDevice({
+                ssid: setting.prefix,
+                password: setting.password,
+              });
+            } catch (error) {}
+            /** Contiunue show loading modal if user press save wifi button */
+            setLoading(true);
+
+            let checkCurrentSSIDIntervalTimes = 0;
+            const checkCurrentSSIDInterval = setInterval(async () => {
+              if (
+                checkCurrentSSIDIntervalTimes >=
+                maxCheckCurrentSSIDIntervalTimes
+              ) {
                 setLoading(false);
                 clearInterval(checkCurrentSSIDInterval);
-                if (currentSSID === setting.prefix) {
-                  Linking.openURL(setting.url_portal);
-                } else {
-                  Alert.alert(t('util.error'), t('home.wifi_was_saved'));
-                }
-              } catch (error) {}
-            }
-          }, checkCurrentSSIDIntervalTime);
-        } catch (e) {
-          setLoading(false);
-          Alert.alert(t('util.error'), e?.toString());
+                Alert.alert(t('util.error'), t('alert.error.default'));
+                resolve(true);
+              } else {
+                checkCurrentSSIDIntervalTimes++;
+                try {
+                  const currentSSID = await WifiManager.getCurrentWifiSSID();
+                  setLoading(false);
+                  clearInterval(checkCurrentSSIDInterval);
+                  if (
+                    currentSSID
+                      .toLocaleLowerCase()
+                      .startsWith(setting.prefix.toLocaleLowerCase())
+                  ) {
+                    Linking.openURL(setting.url_portal);
+                  } else {
+                    Alert.alert(t('util.error'), t('home.wifi_was_saved'));
+                  }
+                  resolve(true);
+                } catch (error) {}
+              }
+            }, checkCurrentSSIDIntervalTime);
+          } catch (error) {
+            resolve(false);
+          }
+        });
+        if (mathchedWifiResult) {
+          hasValidWifi = true;
+          break;
         }
-      } else {
-        setLoading(false);
-        Alert.alert(t('util.error'), t('alert.permission.location'));
       }
-    } else {
       setLoading(false);
+      if (!hasValidWifi) {
+        Alert.alert(t('util.error'), t('alert.error.default'));
+      }
+    } catch (e) {
+      setLoading(false);
+      Alert.alert(t('util.error'), e?.toString());
     }
   };
 
