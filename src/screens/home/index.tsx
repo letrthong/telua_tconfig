@@ -59,7 +59,7 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
   const checkConfig = () => {
     if (!setting.prefix || !setting.password || !setting.url_portal) {
       Alert.alert(t('util.info'), t('home.enter_config'));
-      onPressSetting();
+      navigation.navigate('SettingConfig');
       return false;
     }
     return true;
@@ -106,7 +106,7 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
 
       const wifiList = await TetheringManager.getWifiNetworks(true);
       const matchedWifiList = wifiList.filter(wifi =>
-        wifi.ssid.toLocaleLowerCase().startsWith(setting.prefix),
+        wifi.ssid.toLocaleLowerCase().startsWith(setting.prefix.toLowerCase()),
       );
       if (!matchedWifiList.length) {
         setLoading(false);
