@@ -1,5 +1,3 @@
-import type {AssetType} from '@react-native-camera-roll/camera-roll';
-import type {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import type {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import type {CompositeScreenProps} from '@react-navigation/native';
 import type {StackScreenProps} from '@react-navigation/stack';

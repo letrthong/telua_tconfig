@@ -1,12 +1,12 @@
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import Setting from 'assets/svgs/setting.svg';
 import Language from 'assets/svgs/language.svg';
-import Item from './Item';
-import {useTranslation} from 'react-i18next';
-import {RootStackScreenProps} from 'typings/navigation';
+import Setting from 'assets/svgs/setting.svg';
 import ChangeLanguagePopup from 'components/features/language/change-language-popup';
+import React from 'react';
+import {useTranslation} from 'react-i18next';
+import {ScrollView} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import Item from './Item';
+import type {RootStackScreenProps} from 'typings/navigation';
 
 export default function SettingListScreen({
   navigation,
@@ -20,8 +20,8 @@ export default function SettingListScreen({
     <ScrollView contentContainerStyle={{paddingBottom: bottom}}>
       <Item
         Icon={Setting}
-        onPress={onPressConfig}
         title={t('setting.menu.config')}
+        onPress={onPressConfig}
       />
       <ChangeLanguagePopup
         SelectButton={
@@ -31,5 +31,3 @@ export default function SettingListScreen({
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({});

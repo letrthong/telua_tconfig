@@ -1,4 +1,5 @@
 import {Divider, Text} from '@rneui/themed';
+import MyModal from 'components/atoms/my-modal';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {FlatList} from 'react-native';
@@ -7,7 +8,6 @@ import {Gap} from 'utils';
 import Item from './Item';
 import type {ComponentProps} from 'react';
 import type {ListRenderItem} from 'react-native';
-import MyModal from 'components/atoms/my-modal';
 
 type Props = ComponentProps<typeof MyModal> & {
   data: TSelectPopup[];

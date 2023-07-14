@@ -1,17 +1,16 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import type {ReactNode} from 'react';
+import {Text} from '@rneui/themed';
+import Home from 'assets/svgs/home.svg';
 import React from 'react';
 import {useTranslation} from 'react-i18next';
 import {Platform, StyleSheet, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import type {MainTabParamList} from 'typings/navigation';
+import HomeScreen from 'screens/home';
 import {DefaultIconProps, Gap} from 'utils';
 import AppStyles from 'utils/styles';
 import {Colors} from 'utils/themes';
-import {styles} from './styles';
-import {Text} from '@rneui/themed';
-import HomeScreen from 'screens/home';
-import Home from 'assets/svgs/home.svg';
+import type {ReactNode} from 'react';
+import type {MainTabParamList} from 'typings/navigation';
 
 type TabBarIconProps = {
   focused: boolean;

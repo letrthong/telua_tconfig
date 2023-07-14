@@ -1,16 +1,15 @@
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
 import {KeyboardAwareScrollView} from '@codler/react-native-keyboard-aware-scroll-view';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import AppStyles from 'utils/styles';
-import {Gap, getInputError, getInputPlacehoder} from 'utils';
-import {useForm, Controller} from 'react-hook-form';
-import useStore, {setSetting} from 'stores';
 import {Button, Input} from '@rneui/themed';
-import {useTranslation} from 'react-i18next';
 import Space from 'components/atoms/space';
+import React from 'react';
+import {Controller, useForm} from 'react-hook-form';
+import {useTranslation} from 'react-i18next';
 import {showMessage} from 'react-native-flash-message';
-import {RootStackScreenProps} from 'typings/navigation';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import useStore, {setSetting} from 'stores';
+import {Gap, getInputError, getInputPlacehoder} from 'utils';
+import AppStyles from 'utils/styles';
+import type {RootStackScreenProps} from 'typings/navigation';
 
 export default function SettingConfigScreen({
   navigation,
@@ -43,12 +42,12 @@ export default function SettingConfigScreen({
 
   return (
     <KeyboardAwareScrollView
-      keyboardShouldPersistTaps="handled"
       contentContainerStyle={[
         AppStyles.paddingHorizontal,
         AppStyles.paddingTop,
         {paddingBottom: Gap + bottom},
-      ]}>
+      ]}
+      keyboardShouldPersistTaps="handled">
       <Controller
         control={control}
         name="prefix"
@@ -56,11 +55,11 @@ export default function SettingConfigScreen({
           <Input
             ref={ref}
             errorMessage={errors.prefix?.message}
+            label={t('setting.prefix')}
             placeholder={getInputPlacehoder(t('setting.prefix'))}
             value={value}
             onBlur={onBlur}
             onChangeText={onChange}
-            label={t('setting.prefix')}
           />
         )}
         rules={{
@@ -75,11 +74,11 @@ export default function SettingConfigScreen({
           <Input
             ref={ref}
             errorMessage={errors.password?.message}
+            label={t('setting.password')}
             placeholder={getInputPlacehoder(t('setting.password'))}
             value={value}
             onBlur={onBlur}
             onChangeText={onChange}
-            label={t('setting.password')}
           />
         )}
         rules={{
@@ -93,11 +92,11 @@ export default function SettingConfigScreen({
           <Input
             ref={ref}
             errorMessage={errors.url_portal?.message}
+            label={t('setting.url_portal')}
             placeholder={getInputPlacehoder(t('setting.url_portal'))}
             value={value}
             onBlur={onBlur}
             onChangeText={onChange}
-            label={t('setting.url_portal')}
           />
         )}
         rules={{
@@ -110,5 +109,3 @@ export default function SettingConfigScreen({
     </KeyboardAwareScrollView>
   );
 }
-
-const styles = StyleSheet.create({});

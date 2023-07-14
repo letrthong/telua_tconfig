@@ -1,9 +1,8 @@
-import {useNavigation} from '@react-navigation/native';
+import {Text} from '@rneui/themed';
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {GapSmall} from 'utils';
 import AppStyles from 'utils/styles';
-import {Text} from '@rneui/themed';
 
 type Props = {
   title?: string;

@@ -3,24 +3,24 @@ import {Text} from '@rneui/themed';
 import Search from 'assets/svgs/search.svg';
 import Setting from 'assets/svgs/setting.svg';
 import LoadingModal from 'components/atoms/loading-modal';
-import React, {FC, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
   Alert,
   Linking,
   PermissionsAndroid,
   Platform,
-  StyleSheet,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {SvgProps} from 'react-native-svg';
 import WifiManager from 'react-native-wifi-reborn';
 import useStore from 'stores';
-import {MainTabScreenProps} from 'typings/navigation';
-import {IconSizes, getInputError} from 'utils';
+import {IconSizes} from 'utils';
 import AppStyles from 'utils/styles';
 import {Colors} from 'utils/themes';
+import type {FC} from 'react';
+import type {SvgProps} from 'react-native-svg';
+import type {MainTabScreenProps} from 'typings/navigation';
 
 type ItemProps = {
   Icon: FC<SvgProps>;
@@ -34,10 +34,10 @@ const Item = ({Icon, title, onPress}: ItemProps) => {
       style={[AppStyles.flex1, AppStyles.itemCenter]}
       onPress={onPress}>
       <Icon
-        width={IconSizes.veryLarge}
-        height={IconSizes.veryLarge}
         color={Colors.primary}
+        height={IconSizes.veryLarge}
         style={AppStyles.marginBottomSmall}
+        width={IconSizes.veryLarge}
       />
       <Text>{title}</Text>
     </TouchableOpacity>
@@ -192,7 +192,7 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
 
   return (
     <View style={[AppStyles.flex1, AppStyles.padding]}>
-      <View style={[AppStyles.row]}>
+      <View style={AppStyles.row}>
         <Item Icon={Search} title={t('home.menu.scan')} onPress={onPressScan} />
         <Item
           Icon={Setting}
@@ -204,5 +204,3 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({});

@@ -1,8 +1,8 @@
 import i18n from 'locales';
 import {Platform} from 'react-native';
 import {responsiveScreenWidth} from 'react-native-responsive-dimensions';
-import type {SvgProps} from 'react-native-svg';
 import themes, {Colors} from './themes';
+import type {SvgProps} from 'react-native-svg';
 
 export const Fonts = themes.Fonts;
 export const IconSizes = themes.IconSizes;

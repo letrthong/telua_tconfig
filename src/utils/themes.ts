@@ -154,7 +154,7 @@ export const navigationTheme: Theme = {
   dark: false,
   colors: {
     ...DefaultTheme.colors,
-    primary: Colors.secondary,
+    primary: Colors.primary,
     background: Colors.background,
   },
 };

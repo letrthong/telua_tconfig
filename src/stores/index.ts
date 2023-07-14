@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
 import {MMKVLoader} from 'react-native-mmkv-storage';
 import {create} from 'zustand';
-import type {StateStorage} from 'zustand/middleware';
 import {createJSONStorage, persist} from 'zustand/middleware';
+import type {StateStorage} from 'zustand/middleware';
 
 const storage = new MMKVLoader()
   .withInstanceID('rNt97sZu8bs')

@@ -1,3 +1,4 @@
+import {Text} from '@rneui/themed';
 import ArrowRight from 'assets/svgs/arrow-right.svg';
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
@@ -5,7 +6,6 @@ import {DefaultIconProps, Gap} from 'utils';
 import AppStyles from 'utils/styles';
 import {Colors} from 'utils/themes';
 import type {SvgProps} from 'react-native-svg';
-import {Text} from '@rneui/themed';
 
 type Props = {
   Icon: React.FC<SvgProps>;

@@ -12,14 +12,14 @@ import BootSplash from 'react-native-bootsplash';
 import FlashMessage from 'react-native-flash-message';
 import 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import SettingConfigScreen from 'screens/setting/config';
+import SettingListScreen from 'screens/setting/list';
 import SplashScreen from 'screens/splash';
 import useStore, {useHydration} from 'stores';
-import type {MainTabParamList, RootStackParamList} from 'typings/navigation';
 import {Colors, light, navigationTheme} from 'utils/themes';
 import MainTab from './MainTab';
 import {navigationRef} from './RootNavigation';
-import SettingListScreen from 'screens/setting/list';
-import SettingConfigScreen from 'screens/setting/config';
+import type {MainTabParamList, RootStackParamList} from 'typings/navigation';
 
 const RootStack = createStackNavigator<RootStackParamList & MainTabParamList>();
 const onReady = () => BootSplash.hide({fade: true});

@@ -18,9 +18,6 @@ const AppStyles = StyleSheet.create({
   background: {
     backgroundColor: Colors.background,
   },
-  backgroundPrimaryLight: {
-    backgroundColor: Colors.primaryLight,
-  },
   backgroundBlack: {
     backgroundColor: Colors.black,
   },
@@ -54,6 +51,9 @@ const AppStyles = StyleSheet.create({
   backgroundPrimary: {
     backgroundColor: Colors.primary,
   },
+  backgroundPrimaryLight: {
+    backgroundColor: Colors.primaryLight,
+  },
   backgroundSecondary: {
     backgroundColor: Colors.secondary,
   },
@@ -73,23 +73,11 @@ const AppStyles = StyleSheet.create({
     borderColor: Colors.border,
     borderWidth: 1,
   },
-  borderError: {
-    borderColor: Colors.error,
-  },
-  borderSuccess: {
-    borderColor: Colors.success,
-  },
-  borderTransparent: {
-    borderColor: Colors.transparent,
-  },
-  borderWarning: {
-    borderColor: Colors.warning,
-  },
-  borderWhite: {
-    borderColor: Colors.white,
-  },
   borderBlack: {
     borderColor: Colors.black,
+  },
+  borderError: {
+    borderColor: Colors.error,
   },
   borderGrey0: {
     borderColor: Colors.grey0,
@@ -112,9 +100,6 @@ const AppStyles = StyleSheet.create({
   borderInfo: {
     borderColor: Colors.info,
   },
-  borderSecondary: {
-    borderColor: Colors.secondary,
-  },
   borderPrimary: {
     borderColor: Colors.primary,
   },
@@ -129,6 +114,21 @@ const AppStyles = StyleSheet.create({
   },
   borderRadiusVeryLarge: {
     borderRadius: themes.BorderRadiuses.veryLarge,
+  },
+  borderSecondary: {
+    borderColor: Colors.secondary,
+  },
+  borderSuccess: {
+    borderColor: Colors.success,
+  },
+  borderTransparent: {
+    borderColor: Colors.transparent,
+  },
+  borderWarning: {
+    borderColor: Colors.warning,
+  },
+  borderWhite: {
+    borderColor: Colors.white,
   },
   center: {
     alignItems: 'center',
@@ -337,9 +337,6 @@ const AppStyles = StyleSheet.create({
   textCenter: {
     textAlign: 'center',
   },
-  textPrimaryLight: {
-    color: Colors.primaryLight,
-  },
   textDisabled: {
     color: Colors.disabled,
   },
@@ -370,6 +367,7 @@ const AppStyles = StyleSheet.create({
   textLowerCase: {
     textTransform: 'lowercase',
   },
+  textMedium: themes.FontStyles.medium,
   textNone: {
     textTransform: 'none',
   },
@@ -379,8 +377,10 @@ const AppStyles = StyleSheet.create({
   textPrimary: {
     color: Colors.primary,
   },
+  textPrimaryLight: {
+    color: Colors.primaryLight,
+  },
   textRegular: themes.FontStyles.regular,
-  textMedium: themes.FontStyles.medium,
   textRight: {
     textAlign: 'right',
   },
