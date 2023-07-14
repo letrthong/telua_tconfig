@@ -70,6 +70,12 @@ export const FormDataHeaders = {
   'Content-Type': 'multipart/form-data',
 };
 
+export const defaultSetting: TSetting = {
+  prefix: 'telua',
+  password: '12345678',
+  url_portal: 'http://192.168.0.1',
+};
+
 export const getItemWidth = (cols = 1) => {
   return (responsiveScreenWidth(100) - Gap * (cols + 1)) / cols;
 };

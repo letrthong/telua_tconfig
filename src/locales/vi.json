@@ -60,7 +60,8 @@
     "show_all": "Tất cả",
     "skip": "Bỏ qua",
     "update": "Cập nhật",
-    "upload": "Tải lên"
+    "upload": "Tải lên",
+    "reset": "Reset"
   },
   "error": {
     "email": {
@@ -107,7 +108,7 @@
     "url_portal": "URL Portal"
   },
   "tab_title": {
-    "home": "Trang chủ"
+    "home": "Telua"
   },
   "util": {
     "all": "Tất cả",

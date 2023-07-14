@@ -1,13 +1,14 @@
 import {KeyboardAwareScrollView} from '@codler/react-native-keyboard-aware-scroll-view';
-import {Button, Input} from '@rneui/themed';
+import {Button, Input, Text} from '@rneui/themed';
 import Space from 'components/atoms/space';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {useTranslation} from 'react-i18next';
+import {TouchableOpacity} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import useStore, {setSetting} from 'stores';
-import {Gap, getInputError, getInputPlacehoder} from 'utils';
+import useStore, {resetSetting, setSetting} from 'stores';
+import {Gap, defaultSetting, getInputError, getInputPlacehoder} from 'utils';
 import AppStyles from 'utils/styles';
 import type {RootStackScreenProps} from 'typings/navigation';
 
@@ -21,11 +22,39 @@ export default function SettingConfigScreen({
     control,
     formState: {errors},
     handleSubmit,
+    setValue,
   } = useForm<TSetting>({
     defaultValues: {
       ...setting,
     },
   });
+
+  useEffect(() => {
+    const onPressReset = () => {
+      resetSetting();
+      setValue('prefix', defaultSetting.prefix);
+      setValue('password', defaultSetting.password);
+      setValue('url_portal', defaultSetting.url_portal);
+      showMessage({
+        type: 'success',
+        message: t('alert.success.update'),
+      });
+    };
+
+    const headerRight = () => (
+      <TouchableOpacity
+        hitSlop={10}
+        style={AppStyles.marginRight}
+        onPress={onPressReset}>
+        <Text style={[AppStyles.textPrimary, AppStyles.textLarge]}>
+          {t('button.reset')}
+        </Text>
+      </TouchableOpacity>
+    );
+    navigation.setOptions({
+      headerRight,
+    });
+  }, [navigation]);
 
   const onSubmit = (data: TSetting) => {
     setSetting({
