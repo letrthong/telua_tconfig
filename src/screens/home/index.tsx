@@ -22,6 +22,11 @@ import type {FC} from 'react';
 import type {SvgProps} from 'react-native-svg';
 import type {MainTabScreenProps} from 'typings/navigation';
 
+const checkCurrentSSIDIntervalTime = 1000;
+const maxCheckCurrentSSIDIntervalTimes = 10;
+// TODO: search more
+const hasPasswordcapabilityKeys = ['WPA', 'WPA2', 'WEP'];
+
 type ItemProps = {
   Icon: FC<SvgProps>;
   title: string;
@@ -43,9 +48,6 @@ const Item = ({Icon, title, onPress}: ItemProps) => {
     </TouchableOpacity>
   );
 };
-
-const checkCurrentSSIDIntervalTime = 1000;
-const maxCheckCurrentSSIDIntervalTimes = 10;
 
 export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
   const {t} = useTranslation();
@@ -70,10 +72,6 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
       return;
     }
 
-    if (Platform.OS !== 'android') {
-      return;
-    }
-
     setLoading(true);
     const granted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
@@ -91,7 +89,8 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
         // next code will bot be executed,
         // except next time user press enable button, this (previous) code will be executed,
 
-        /** In android 10 and above, you cannot enable WiFi programmatically,
+        /**
+         * In android 10 and above, you cannot enable WiFi programmatically,
          * so a popup will be shown to the user to enable it manually.
          * If user don't press enable button, next code will not be executed,
          * except next time user press enable wifi button,
@@ -101,7 +100,7 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
         setLoading(false);
         await TetheringManager.setWifiEnabled();
       }
-      /** Contiunue show loading modal if user press enable wifi button */
+      // Contiunue show loading modal if user press enable wifi button
       setLoading(true);
 
       const wifiList = await TetheringManager.getWifiNetworks(true);
@@ -114,31 +113,56 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
         return;
       }
 
+      const isAndroid10AndAbove = Platform.Version >= 29;
       // TODO: if new network was saved and has current network,
       // can not disconnect from current network
 
-      /** Need disconnect from current network to connect to new network */
-      await TetheringManager.disconnectFromNetwork();
+      /**
+       * Need disconnect from current network to connect to new network
+       * TetheringManager.disconnectFromNetwork only work on android 10 and above
+       */
+      if (isAndroid10AndAbove) {
+        await TetheringManager.disconnectFromNetwork();
+      } else {
+        await WifiManager.disconnect();
+      }
       let hasValidWifi = false;
       for await (const mathchedWifi of matchedWifiList) {
         const mathchedWifiResult = await new Promise(async resolve => {
+          const hasPasswordWifi = hasPasswordcapabilityKeys.some(key =>
+            mathchedWifi.capabilities.includes(key),
+          );
           try {
-            await TetheringManager.connectToNetwork({
-              ssid: mathchedWifi.ssid,
-              password: setting.password,
-            });
-            try {
-              /** If user don't press save button, next code will not be executed,
-               * so we need hide loading modal here
-               */
-              setLoading(false);
-              await TetheringManager.saveNetworkInDevice({
-                ssid: setting.prefix,
-                password: setting.password,
+            /**
+             *  TetheringManager.connectToNetwork only work on android 10 and above
+             *  TetheringManager.saveNetworkInDevice only work on android 10 and above
+             */
+            if (isAndroid10AndAbove) {
+              await TetheringManager.connectToNetwork({
+                ssid: mathchedWifi.ssid,
+                password: hasPasswordWifi ? setting.password : undefined,
               });
-            } catch (error) {}
-            /** Contiunue show loading modal if user press save wifi button */
-            setLoading(true);
+              try {
+                /**
+                 * If user don't press save button, next code will not be executed,
+                 * so we need hide loading modal here
+                 */
+                setLoading(false);
+                await TetheringManager.saveNetworkInDevice({
+                  ssid: setting.prefix,
+                  password: hasPasswordWifi ? setting.password : undefined,
+                });
+              } catch (error) {}
+              // Contiunue show loading modal if user press save wifi button
+              setLoading(true);
+            } else {
+              await WifiManager.connectToProtectedSSID(
+                mathchedWifi.ssid,
+                hasPasswordWifi ? setting.password : null,
+                true,
+                false,
+              );
+            }
 
             let checkCurrentSSIDIntervalTimes = 0;
             const checkCurrentSSIDInterval = setInterval(async () => {
