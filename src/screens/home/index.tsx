@@ -23,7 +23,7 @@ import type {FC} from 'react';
 import type {SvgProps} from 'react-native-svg';
 import type {MainTabScreenProps} from 'typings/navigation';
 
-const checkCurrentSSIDIntervalTime = 3000;
+const checkCurrentSSIDIntervalTime = 1000;
 const maxCheckCurrentSSIDIntervalTimes = 10;
 const goToUrlPortalDelay = 3000;
 // TODO: search more
@@ -70,6 +70,15 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
   };
 
   const onPressScan = async () => {
+    const isMatchedSsid = (ssid: string) => {
+      return ssid.toLowerCase().startsWith(setting.prefix.toLowerCase());
+    };
+
+    const goToUrlPortal = () => {
+      setLoading(false);
+      Linking.openURL(setting.url_portal);
+    };
+
     if (!checkConfig() || Platform.OS !== 'android') {
       return;
     }
@@ -105,10 +114,15 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
       // Contiunue show loading modal if user press enable wifi button
       setLoading(true);
 
+      try {
+        const currentSSID = await WifiManager.getCurrentWifiSSID();
+        if (isMatchedSsid(currentSSID)) {
+          goToUrlPortal();
+        }
+      } catch (error) {}
+
       const wifiList = await TetheringManager.getWifiNetworks(true);
-      const matchedWifiList = wifiList.filter(wifi =>
-        wifi.ssid.toLocaleLowerCase().startsWith(setting.prefix.toLowerCase()),
-      );
+      const matchedWifiList = wifiList.filter(wifi => isMatchedSsid(wifi.ssid));
       if (!matchedWifiList.length) {
         setLoading(false);
         Alert.alert(t('util.error'), t('home.no_match'));
@@ -179,16 +193,11 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
               } else {
                 checkCurrentSSIDIntervalTimes++;
                 try {
-                  const currentSSID = await WifiManager.getCurrentWifiSSID();
+                  const _currentSSID = await WifiManager.getCurrentWifiSSID();
                   clearInterval(checkCurrentSSIDInterval);
-                  if (
-                    currentSSID
-                      .toLowerCase()
-                      .startsWith(setting.prefix.toLowerCase())
-                  ) {
+                  if (isMatchedSsid(_currentSSID)) {
                     await new Promise(r => setTimeout(r, goToUrlPortalDelay));
-                    setLoading(false);
-                    Linking.openURL(setting.url_portal);
+                    goToUrlPortal();
                   } else {
                     Alert.alert(t('util.error'), t('home.wifi_was_saved'));
                     setLoading(false);
