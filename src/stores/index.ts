@@ -21,7 +21,7 @@ const initialStoreState: StoreState = {
 const useStore = create<StoreState>()(
   persist(_ => initialStoreState, {
     name: 'tconfigs',
-    version: 2,
+    version: 3,
     storage: createJSONStorage(() => storage as unknown as StateStorage),
     partialize: state =>
       Object.fromEntries(

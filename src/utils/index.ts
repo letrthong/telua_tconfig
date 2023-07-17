@@ -71,7 +71,7 @@ export const FormDataHeaders = {
 };
 
 export const defaultSetting: TSetting = {
-  prefix: 'telua',
+  prefix: 'Telua',
   password: '12345678',
   url_portal: 'http://192.168.0.1',
 };
