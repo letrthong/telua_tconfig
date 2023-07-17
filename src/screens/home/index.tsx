@@ -3,7 +3,6 @@ import {Text} from '@rneui/themed';
 import Search from 'assets/svgs/search.svg';
 import Setting from 'assets/svgs/setting.svg';
 import LoadingModal from 'components/atoms/loading-modal';
-import Space from 'components/atoms/space';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
@@ -16,7 +15,7 @@ import {
 } from 'react-native';
 import WifiManager from 'react-native-wifi-reborn';
 import useStore from 'stores';
-import {Gap, IconSizes} from 'utils';
+import {IconSizes} from 'utils';
 import AppStyles from 'utils/styles';
 import {Colors} from 'utils/themes';
 import type {FC} from 'react';
@@ -229,16 +228,6 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
 
   return (
     <View style={[AppStyles.flex1, AppStyles.padding]}>
-      <Text>
-        {t('setting.prefix')}: {setting.prefix}
-      </Text>
-      <Text>
-        {t('setting.password')}: {setting.password}
-      </Text>
-      <Text>
-        {t('setting.url_portal')}: {setting.url_portal}
-      </Text>
-      <Space height={Gap * 2} />
       <View style={AppStyles.row}>
         <Item Icon={Search} title={t('home.menu.scan')} onPress={onPressScan} />
         <Item
