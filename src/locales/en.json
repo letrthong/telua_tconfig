@@ -53,6 +53,7 @@
     "open_settings": "Open settings",
     "pay": "Pay",
     "post": "Post",
+    "reset": "Reset",
     "revise": "Revise",
     "save": "Save",
     "select_range": "Select range",
@@ -61,6 +62,13 @@
     "skip": "Skip",
     "update": "Update",
     "upload": "Upload"
+  },
+  "codepush": {
+    "optional_ignore_button_label": "Skip",
+    "optional_install_button_abel": "Update",
+    "optional_update_message": "There are new content updates, do you want to update?\n(During the update process, the app will restart by itself)",
+    "title": "Update",
+    "updating": "Updating..."
   },
   "error": {
     "email": {
