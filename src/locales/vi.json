@@ -63,6 +63,13 @@
     "upload": "Tải lên",
     "reset": "Reset"
   },
+  "codepush": {
+    "optional_ignore_button_label": "Bỏ qua",
+    "optional_install_button_abel": "Cập nhật",
+    "optional_update_message": "Có cập nhật nội dung mới, bạn có muốn cập nhật không?\n(Trong quá trình cập nhật, ứng dụng sẽ tự khởi động lại)",
+    "title": "Cập nhật",
+    "updating": "Đang cập nhật..."
+  },
   "error": {
     "email": {
       "invalid": "Email không hợp lệ"

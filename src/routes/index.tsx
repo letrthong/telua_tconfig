@@ -1,14 +1,17 @@
+import {useAppState} from '@react-native-community/hooks';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {ThemeProvider} from '@rneui/themed';
 import Api from 'api';
 import {fetchLanguageApi} from 'api/config';
 import 'locales';
+import LoadingModal from 'components/atoms/loading-modal';
 import i18n from 'locales';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {StatusBar} from 'react-native';
 import BootSplash from 'react-native-bootsplash';
+import CodePush from 'react-native-code-push';
 import FlashMessage from 'react-native-flash-message';
 import 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
@@ -19,7 +22,13 @@ import useStore, {useHydration} from 'stores';
 import {Colors, light, navigationTheme} from 'utils/themes';
 import MainTab from './MainTab';
 import {navigationRef} from './RootNavigation';
+import type {
+  DownloadProgress,
+  UpdateDialog as RNCodepushUpdateDialog,
+} from 'react-native-code-push';
 import type {MainTabParamList, RootStackParamList} from 'typings/navigation';
+
+const codePushOptions = {checkFrequency: CodePush.CheckFrequency.MANUAL};
 
 const RootStack = createStackNavigator<RootStackParamList & MainTabParamList>();
 const onReady = () => BootSplash.hide({fade: true});
@@ -28,10 +37,35 @@ const App = () => {
   const hydrated = useHydration();
   const {t} = useTranslation();
   const {routeState, language} = useStore();
+  const appState = useAppState();
+  const [progress, setProgress] = useState<DownloadProgress | null>(null);
+  const updateDialog: RNCodepushUpdateDialog = {
+    title: t('codepush.title') || '',
+    optionalUpdateMessage: t('codepush.optional_update_message') || '',
+    optionalIgnoreButtonLabel: t('button.skip') || '',
+    optionalInstallButtonLabel: t('button.update') || '',
+  };
 
   useEffect(() => {
     fetchLanguageApi();
   }, []);
+
+  useEffect(() => {
+    if (appState === 'active') {
+      CodePush.sync(
+        {
+          installMode: CodePush.InstallMode.IMMEDIATE,
+          updateDialog,
+        },
+        _status => {},
+        p => {
+          if (p) {
+            setProgress(p);
+          }
+        },
+      );
+    }
+  }, [appState]);
 
   useEffect(() => {
     if (language) {
@@ -88,6 +122,11 @@ const App = () => {
             )}
           </RootStack.Navigator>
         </NavigationContainer>
+        <LoadingModal
+          isVisible={!!progress}
+          progress={progress}
+          text={t('codepush.updating') || ''}
+        />
         <FlashMessage
           position="top"
           statusBarHeight={StatusBar.currentHeight}
@@ -97,4 +136,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default CodePush(codePushOptions)(App);

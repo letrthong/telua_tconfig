@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">TConfig (Dev)</string>
+  <string name="app_name">TConfig (Dev)</string>
+  <string moduleConfig="true" name="CodePushDeploymentKey">jqXSfg2egnM3g4PKg6i1atdBap4EDxR_KPmQE</string>
 </resources>
