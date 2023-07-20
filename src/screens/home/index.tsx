@@ -4,9 +4,11 @@ import Setting from 'assets/svgs/setting.svg';
 import LoadingModal from 'components/atoms/loading-modal';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Alert, TouchableOpacity, View} from 'react-native';
+import {Alert, Linking, TouchableOpacity, View} from 'react-native';
+import WifiManager from 'react-native-wifi-reborn';
 import useStore from 'stores';
 import {IconSizes} from 'utils';
+import {alertFunc} from 'utils/permissions';
 import AppStyles from 'utils/styles';
 import {Colors} from 'utils/themes';
 import type {FC} from 'react';
@@ -37,7 +39,7 @@ const Item = ({Icon, title, onPress}: ItemProps) => {
 
 export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
   const {t} = useTranslation();
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const {setting} = useStore();
 
   useEffect(() => {
@@ -53,7 +55,51 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
     return true;
   };
 
-  const onPressScan = async () => {};
+  const onPressScan = async () => {
+    const goToUrlPortal = () => {
+      setLoading(false);
+      Linking.openURL(setting.url_portal);
+    };
+
+    if (!checkConfig()) {
+      return;
+    }
+
+    setLoading(true);
+    try {
+      try {
+        const currentSSID = await WifiManager.getCurrentWifiSSID();
+        if (currentSSID === setting.prefix) {
+          goToUrlPortal();
+          return;
+        }
+      } catch (error) {
+        const e = error as Error & {code: string};
+        if (e?.code === 'locationPermissionDenied') {
+          setLoading(false);
+          alertFunc(t('alert.permission.location'));
+          return;
+        } else if (e?.code === 'couldNotDetectSSID') {
+          setLoading(false);
+          Alert.alert(t('util.info'), t('alert.permission.wifi'));
+          return;
+        }
+      }
+      await WifiManager.connectToProtectedSSID(
+        setting.prefix,
+        setting.password,
+        false,
+        false,
+      );
+      goToUrlPortal();
+    } catch (error) {
+      const e = error as Error & {code?: string};
+      setLoading(false);
+      if (e?.code !== 'unableToConnect' && e?.code !== 'userDenied') {
+        Alert.alert(t('util.error'), e?.toString());
+      }
+    }
+  };
 
   const onPressSetting = () => navigation.navigate('SettingList');
 

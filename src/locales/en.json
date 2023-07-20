@@ -15,7 +15,8 @@
       "camera": "You need to enable camera permission to use this feature",
       "location": "You need to enable location permission to use this feature",
       "notification": "You need to enable notification permission to receive notification",
-      "photo": "You need to enable photo permission to use this feature"
+      "photo": "You need to enable photo permission to use this feature",
+      "wifi": "You need to enable wifi to use this feature"
     },
     "success": {
       "update": "Update successfully"
@@ -111,7 +112,7 @@
       "language": "Language"
     },
     "password": "Password",
-    "prefix": "Prefix",
+    "prefix": "Wifi name",
     "url_portal": "Portal URL"
   },
   "tab_title": {

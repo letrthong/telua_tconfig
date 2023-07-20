@@ -15,7 +15,8 @@
       "camera": "Bạn cần bật quyền của máy ảnh để sử dụng tính năng này",
       "location": "Vui lòng bật vị trí để sử dụng tính năng này",
       "notification": "Bạn cần bật thông báo để nhận thông báo từ đơn hàng",
-      "photo": "Bạn cần bật quyền truy cập ảnh để sử dụng tính năng này"
+      "photo": "Bạn cần bật quyền truy cập ảnh để sử dụng tính năng này",
+      "wifi": "Bạn cần bật wifi để sử dụng tính năng này"
     },
     "success": {
       "update": "Cập nhật thành công"
@@ -111,7 +112,7 @@
       "language": "Ngôn ngữ"
     },
     "password": "Mật khẩu",
-    "prefix": "Prefix",
+    "prefix": "Tên wifi",
     "url_portal": "URL Portal"
   },
   "tab_title": {
