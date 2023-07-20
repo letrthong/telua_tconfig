@@ -93,12 +93,12 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.telua.config.dev"
+    namespace "com.telua.config"
     defaultConfig {
-        applicationId "com.telua.config.dev"
+        applicationId "com.telua.config"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 5
+        versionCode 1
         versionName "1.0.0"
     }
 

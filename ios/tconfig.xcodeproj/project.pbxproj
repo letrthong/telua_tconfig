@@ -500,7 +500,7 @@
 				DEVELOPMENT_TEAM = 5G34VP3DN6;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = tconfig/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "TConfig (Dev)";
+				INFOPLIST_KEY_CFBundleDisplayName = TConfig;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -511,7 +511,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.telua.config.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = co.telua.config;
 				PRODUCT_NAME = tconfig;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -529,7 +529,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5G34VP3DN6;
 				INFOPLIST_FILE = tconfig/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "TConfig (Dev)";
+				INFOPLIST_KEY_CFBundleDisplayName = TConfig;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -540,7 +540,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.telua.config.dev;
+				PRODUCT_BUNDLE_IDENTIFIER = co.telua.config;
 				PRODUCT_NAME = tconfig;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
