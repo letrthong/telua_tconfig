@@ -11,6 +11,7 @@ type StoreState = {
   language?: TLanguage;
   setting: TSetting;
   isFirstTimeInApp: boolean;
+  lastScanTimeList: string[];
 };
 
 type TPageParams = Partial<{

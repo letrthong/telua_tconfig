@@ -3,6 +3,7 @@ import {Text} from '@rneui/themed';
 import Search from 'assets/svgs/search.svg';
 import Setting from 'assets/svgs/setting.svg';
 import LoadingModal from 'components/atoms/loading-modal';
+import dayjs from 'dayjs';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {
@@ -14,8 +15,8 @@ import {
   View,
 } from 'react-native';
 import WifiManager from 'react-native-wifi-reborn';
-import useStore from 'stores';
-import {IconSizes} from 'utils';
+import useStore, {addLastScanTime} from 'stores';
+import {IconSizes, maxScanTime} from 'utils';
 import AppStyles from 'utils/styles';
 import {Colors} from 'utils/themes';
 import type {FC} from 'react';
@@ -27,17 +28,25 @@ const maxCheckCurrentSSIDIntervalTimes = 10;
 const goToUrlPortalDelay = 3000;
 // TODO: search more
 const hasPasswordcapabilityKeys = ['WPA', 'WPA2', 'WEP'];
+/** seconds */
+const limitTime = 2 * 60;
 
 type ItemProps = {
   Icon: FC<SvgProps>;
   title: string;
+  count?: number;
   onPress: () => void;
 };
 
-const Item = ({Icon, title, onPress}: ItemProps) => {
+const Item = ({Icon, title, count, onPress}: ItemProps) => {
   return (
     <TouchableOpacity
-      style={[AppStyles.flex1, AppStyles.itemCenter]}
+      disabled={!!count}
+      style={[
+        AppStyles.flex1,
+        AppStyles.itemCenter,
+        !!count && AppStyles.opacityHalf,
+      ]}
       onPress={onPress}>
       <Icon
         color={Colors.primary}
@@ -45,19 +54,53 @@ const Item = ({Icon, title, onPress}: ItemProps) => {
         style={AppStyles.marginBottomSmall}
         width={IconSizes.veryLarge}
       />
-      <Text>{title}</Text>
+      <Text>
+        {title}
+        {count ? ` (${count})` : ''}
+      </Text>
     </TouchableOpacity>
   );
 };
 
 export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
   const {t} = useTranslation();
+  const {setting, lastScanTimeList} = useStore();
+  // starting android 9, it's only allowed to scan 4 times per 2 minuts in a foreground app.
+  const [remainTime, setRemainTime] = useState(() => {
+    if (lastScanTimeList.length === maxScanTime) {
+      const diffTime = Math.abs(
+        dayjs(lastScanTimeList[1]).diff(dayjs(), 'seconds'),
+      );
+      return diffTime > limitTime ? 0 : limitTime - diffTime;
+    }
+    return 0;
+  });
   const [loading, setLoading] = useState(false);
-  const {setting} = useStore();
 
   useEffect(() => {
     checkConfig();
   }, []);
+
+  useEffect(() => {
+    const isAndroid9AndAbove =
+      Platform.OS === 'android' && Platform.Version >= 28;
+    if (!isAndroid9AndAbove) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      if (lastScanTimeList.length === maxScanTime) {
+        const diffTime = Math.abs(
+          dayjs(lastScanTimeList[1]).diff(dayjs(), 'seconds'),
+        );
+        setRemainTime(diffTime > limitTime ? 0 : limitTime - diffTime);
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [lastScanTimeList]);
 
   const checkConfig = () => {
     if (!setting.prefix || !setting.password || !setting.url_portal) {
@@ -78,7 +121,7 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
       Linking.openURL(setting.url_portal);
     };
 
-    if (!checkConfig() || Platform.OS !== 'android') {
+    if (!checkConfig()) {
       return;
     }
 
@@ -121,6 +164,7 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
         }
       } catch (error) {}
 
+      addLastScanTime();
       const wifiList = await TetheringManager.getWifiNetworks(true);
       const matchedWifiList = wifiList.filter(wifi => isMatchedSsid(wifi.ssid));
       if (!matchedWifiList.length) {
@@ -129,7 +173,8 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
         return;
       }
 
-      const isAndroid10AndAbove = Platform.Version >= 29;
+      const isAndroid10AndAbove =
+        Platform.OS === 'android' && Platform.Version >= 29;
       // TODO: if new network was saved and has current network,
       // can not disconnect from current network
 
@@ -230,7 +275,12 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
   return (
     <View style={[AppStyles.flex1, AppStyles.padding]}>
       <View style={AppStyles.row}>
-        <Item Icon={Search} title={t('home.menu.scan')} onPress={onPressScan} />
+        <Item
+          count={remainTime}
+          Icon={Search}
+          title={t('home.menu.scan')}
+          onPress={onPressScan}
+        />
         <Item
           Icon={Setting}
           title={t('home.menu.setting')}
