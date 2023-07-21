@@ -10,6 +10,7 @@ type StoreState = {
   routeState: TRouteStates;
   language?: TLanguage;
   setting: TSetting;
+  isFirstTimeInApp: boolean;
 };
 
 type TPageParams = Partial<{

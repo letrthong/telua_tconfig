@@ -16,6 +16,7 @@ const initialStoreState: StoreState = {
   routeState: 'SPLASH',
   language: undefined,
   setting: defaultSetting,
+  isFirstTimeInApp: true,
 };
 
 const useStore = create<StoreState>()(
@@ -29,6 +30,16 @@ const useStore = create<StoreState>()(
           ([key]) => !nonePersistedKeys.includes(key as keyof StoreState),
         ),
       ),
+    migrate: (persistedState, version): StoreState => {
+      const state = persistedState as StoreState;
+      if (version === 2) {
+        return {
+          ...state,
+          isFirstTimeInApp: true,
+        };
+      }
+      return state;
+    },
   }),
 );
 
@@ -65,6 +76,10 @@ export const setSetting = (setting: TSetting) => {
 
 export const resetSetting = () => {
   useStore.setState({setting: defaultSetting});
+};
+
+export const setIsFirstTimeInApp = (isFirstTimeInApp: boolean) => {
+  useStore.setState({isFirstTimeInApp});
 };
 
 export default useStore;
