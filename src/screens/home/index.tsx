@@ -117,6 +117,7 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
         const currentSSID = await WifiManager.getCurrentWifiSSID();
         if (isMatchedSsid(currentSSID)) {
           goToUrlPortal();
+          return;
         }
       } catch (error) {}
 
