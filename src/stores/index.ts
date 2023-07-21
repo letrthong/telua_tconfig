@@ -1,6 +1,7 @@
+import {produce} from 'immer';
 import {useEffect, useState} from 'react';
 import {MMKVLoader} from 'react-native-mmkv-storage';
-import {defaultSetting} from 'utils';
+import {defaultSetting, maxScanTime} from 'utils';
 import {create} from 'zustand';
 import {createJSONStorage, persist} from 'zustand/middleware';
 import type {StateStorage} from 'zustand/middleware';
@@ -17,6 +18,7 @@ const initialStoreState: StoreState = {
   language: undefined,
   setting: defaultSetting,
   isFirstTimeInApp: true,
+  lastScanTimeList: [],
 };
 
 const useStore = create<StoreState>()(
@@ -30,16 +32,6 @@ const useStore = create<StoreState>()(
           ([key]) => !nonePersistedKeys.includes(key as keyof StoreState),
         ),
       ),
-    migrate: (persistedState, version): StoreState => {
-      const state = persistedState as StoreState;
-      if (version === 2) {
-        return {
-          ...state,
-          isFirstTimeInApp: true,
-        };
-      }
-      return state;
-    },
   }),
 );
 
@@ -80,6 +72,20 @@ export const resetSetting = () => {
 
 export const setIsFirstTimeInApp = (isFirstTimeInApp: boolean) => {
   useStore.setState({isFirstTimeInApp});
+};
+
+export const addLastScanTime = () => {
+  useStore.setState(
+    produce((draft: StoreState) => {
+      const time = new Date().toISOString();
+      if (draft.lastScanTimeList.length < maxScanTime) {
+        draft.lastScanTimeList.push(time);
+      } else {
+        draft.lastScanTimeList.shift();
+        draft.lastScanTimeList.push(time);
+      }
+    }),
+  );
 };
 
 export default useStore;
