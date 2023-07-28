@@ -16,6 +16,10 @@ export const Links = {
   config: {
     getDefaultLanguage: 'v1/community/environment/getDefaultLanguage',
   },
+  device: {
+    add: 'bot/v1/production/management/esp32/device/add',
+    checkStatus: 'bot/v1/production/management/esp32/device/status',
+  },
 };
 
 export const showAlertLinks: {method: Method; url: string | undefined}[] = [];

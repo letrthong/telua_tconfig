@@ -7,6 +7,7 @@ type RootStackParamList = {
   Main: undefined;
   SettingList: undefined;
   SettingConfig: undefined;
+  ScanQR: undefined;
 };
 
 type MainTabParamList = {

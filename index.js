@@ -5,6 +5,7 @@ import App from './src/routes';
 LogBox.ignoreLogs([
   'Sending `onAnimatedValueUpdate` with no listeners registered',
   'Non-serializable values were found in the navigation state',
+  'ViewPropTypes will be removed from React Native',
 ]);
 
 AppRegistry.registerComponent(appName, () => App);
