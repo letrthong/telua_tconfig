@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "start": "react-native start",
     "typecheck": "tsc --project tsconfig.json --noEmit",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "react-native setup-ios-permissions && npx pod-install"
   },
   "dependencies": {
     "@codler/react-native-keyboard-aware-scroll-view": "^2.0.1",
@@ -70,5 +71,13 @@
   },
   "reactNativePermissionsIOS": [
     "Camera"
-  ]
+  ],
+  "resolutions": {
+    "react-native-permissions": "^3.8.0"
+  },
+  "overrides": {
+    "react-native-qrcode-scanner": {
+      "react-native-permissions": "^3.8.0"
+    }
+  }
 }
