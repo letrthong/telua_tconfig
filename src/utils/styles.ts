@@ -13,7 +13,7 @@ const AppStyles = StyleSheet.create({
     position: 'absolute',
   },
   backdrop: {
-    backgroundColor: 'rgba(0,0,0,0.1)',
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   background: {
     backgroundColor: Colors.background,

@@ -98,8 +98,9 @@ android {
         applicationId "com.telua.config.dev"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 6
-        versionName "1.0.1"
+        versionCode 7
+        versionName "1.0.2"
+        missingDimensionStrategy 'react-native-camera', 'general'
     }
 
     splits {
