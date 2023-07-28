@@ -42,7 +42,7 @@ export default function ScanQRScreen() {
       Alert.alert(t('util.error'), message, [
         {
           text: t('button.ok'),
-          onPress: ref.current?.reactivate,
+          onPress: () => ref.current?.reactivate(),
         },
       ]);
     };
