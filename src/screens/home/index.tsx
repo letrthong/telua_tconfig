@@ -1,13 +1,15 @@
 import {Text} from '@rneui/themed';
+import Scan from 'assets/svgs/scan.svg';
 import Search from 'assets/svgs/search.svg';
 import Setting from 'assets/svgs/setting.svg';
+import SignIn from 'assets/svgs/sign-in.svg';
 import LoadingModal from 'components/atoms/loading-modal';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Alert, Linking, TouchableOpacity, View} from 'react-native';
 import WifiManager from 'react-native-wifi-reborn';
 import useStore from 'stores';
-import {IconSizes} from 'utils';
+import {Gap, IconSizes} from 'utils';
 import {alertFunc} from 'utils/permissions';
 import AppStyles from 'utils/styles';
 import {Colors} from 'utils/themes';
@@ -21,10 +23,12 @@ type ItemProps = {
   onPress: () => void;
 };
 
+const signInUrl = 'https://telua.co/aiot';
+
 const Item = ({Icon, title, onPress}: ItemProps) => {
   return (
     <TouchableOpacity
-      style={[AppStyles.flex1, AppStyles.itemCenter]}
+      style={[AppStyles.flex1, AppStyles.itemCenter, {marginBottom: Gap * 2}]}
       onPress={onPress}>
       <Icon
         color={Colors.primary}
@@ -103,6 +107,10 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
 
   const onPressSetting = () => navigation.navigate('SettingList');
 
+  const onPressScanQR = () => navigation.navigate('ScanQR');
+
+  const onPressSignIn = () => Linking.openURL(signInUrl);
+
   return (
     <View style={[AppStyles.flex1, AppStyles.padding]}>
       <View style={AppStyles.row}>
@@ -111,6 +119,18 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
           Icon={Setting}
           title={t('home.menu.setting')}
           onPress={onPressSetting}
+        />
+      </View>
+      <View style={AppStyles.row}>
+        <Item
+          Icon={Scan}
+          title={t('home.menu.scan_qr')}
+          onPress={onPressScanQR}
+        />
+        <Item
+          Icon={SignIn}
+          title={t('home.menu.sign_in')}
+          onPress={onPressSignIn}
         />
       </View>
       <LoadingModal isVisible={loading} />

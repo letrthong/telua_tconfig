@@ -84,7 +84,9 @@
     "enter_config": "Please update the configuration",
     "menu": {
       "scan": "Scan",
-      "setting": "Settings"
+      "scan_qr": "Scan QR",
+      "setting": "Settings",
+      "sign_in": "Log in"
     },
     "no_match": "No matching wifi found",
     "wifi_was_saved": "Wifi is saved, please forget the current wifi"
@@ -102,7 +104,12 @@
     },
     "title": "Language"
   },
+  "scan_qr": {
+    "invalid": "Invalid QR code",
+    "invalid_serial_number": "Invalid serial number"
+  },
   "screen_title": {
+    "scan_qr": "Scan QR",
     "setting_config": "Configurations",
     "setting_list": "Settings"
   },

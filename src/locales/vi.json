@@ -54,6 +54,7 @@
     "open_settings": "Mở cài đặt",
     "pay": "Thanh toán ",
     "post": "Đăng",
+    "reset": "Reset",
     "revise": "Sửa đổi",
     "save": "Lưu",
     "select_range": "Chọn phạm vi",
@@ -61,8 +62,7 @@
     "show_all": "Tất cả",
     "skip": "Bỏ qua",
     "update": "Cập nhật",
-    "upload": "Tải lên",
-    "reset": "Reset"
+    "upload": "Tải lên"
   },
   "codepush": {
     "optional_ignore_button_label": "Bỏ qua",
@@ -84,7 +84,9 @@
     "enter_config": "Vui lòng cập nhật cấu hình",
     "menu": {
       "scan": "Quét",
-      "setting": "Cài đặt"
+      "scan_qr": "Quét QR",
+      "setting": "Cài đặt",
+      "sign_in": "Đăng nhập"
     },
     "no_match": "Không tìm thấy wifi phù hợp",
     "wifi_was_saved": "Wifi đã được lưu, vui lòng quên wifi hiện tại"
@@ -102,7 +104,12 @@
     },
     "title": "Ngôn ngữ"
   },
+  "scan_qr": {
+    "invalid": "Mã QR không hợp lệ",
+    "invalid_serial_number": "Số serial không hợp lệ"
+  },
   "screen_title": {
+    "scan_qr": "Quét QR",
     "setting_config": "Cấu hình",
     "setting_list": "Cài đặt"
   },

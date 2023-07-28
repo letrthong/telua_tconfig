@@ -11,6 +11,7 @@ export default function MyActivityIndicator({
   return (
     <ActivityIndicator
       color={Colors.primary}
+      size="large"
       {...props}
       style={[AppStyles.padding, style]}
     />
