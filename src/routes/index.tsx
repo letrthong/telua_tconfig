@@ -15,6 +15,7 @@ import CodePush from 'react-native-code-push';
 import FlashMessage from 'react-native-flash-message';
 import 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import AddDeviceScreen from 'screens/add-device';
 import ScanQRScreen from 'screens/scan-qr';
 import SettingConfigScreen from 'screens/setting/config';
 import SettingListScreen from 'screens/setting/list';
@@ -124,6 +125,13 @@ const App = () => {
                   name="ScanQR"
                   options={{
                     title: t('screen_title.scan_qr'),
+                  }}
+                />
+                <RootStack.Screen
+                  component={AddDeviceScreen}
+                  name="AddDevice"
+                  options={{
+                    title: t('screen_title.add_device'),
                   }}
                 />
               </RootStack.Group>

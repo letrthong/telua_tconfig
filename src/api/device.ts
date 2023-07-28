@@ -6,6 +6,13 @@ export type AddDeviceBody = {
   pincode: string;
 };
 
+export type AddDeviceBodyReturnCode = 3;
+
+export type AddDeviceResponse = {
+  returnCode: AddDeviceBodyReturnCode;
+  returnCodeName: string;
+};
+
 export type CheckDeviceStatusBody = {
   serialNumber: string;
 };
@@ -17,7 +24,7 @@ export type CheckDeviceStatusResponse = {
 };
 
 export const addDevice = (body: AddDeviceBody) => {
-  return Api.post(Links.device.add, body);
+  return Api.post<AddDeviceResponse>(Links.device.add, body);
 };
 
 export const checkDeviceStatus = (body: CheckDeviceStatusBody) => {

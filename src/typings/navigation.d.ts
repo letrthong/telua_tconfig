@@ -8,6 +8,9 @@ type RootStackParamList = {
   SettingList: undefined;
   SettingConfig: undefined;
   ScanQR: undefined;
+  AddDevice: {
+    serialNumber: string;
+  };
 };
 
 type MainTabParamList = {

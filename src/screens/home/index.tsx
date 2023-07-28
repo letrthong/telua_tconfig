@@ -11,7 +11,7 @@ import {useTranslation} from 'react-i18next';
 import {Alert, Linking, Platform, TouchableOpacity, View} from 'react-native';
 import WifiManager from 'react-native-wifi-reborn';
 import useStore, {addLastScanTime} from 'stores';
-import {Gap, IconSizes, maxScanTime} from 'utils';
+import {Gap, IconSizes, goToUrlPortalDelay, maxScanTime} from 'utils';
 import AppStyles from 'utils/styles';
 import {Colors} from 'utils/themes';
 import {checkWifiEnabled, connectWifi, disconnectWifi} from 'utils/wifi';
@@ -19,7 +19,6 @@ import type {FC} from 'react';
 import type {SvgProps} from 'react-native-svg';
 import type {MainTabScreenProps} from 'typings/navigation';
 
-const goToUrlPortalDelay = 3000;
 // TODO: search more
 const hasPasswordcapabilityKeys = ['WPA', 'WPA2', 'WEP'];
 /** seconds */
