@@ -1,15 +1,16 @@
 import {useAppState} from '@react-native-community/hooks';
-import {Button} from '@rneui/themed';
+import {Button, Text} from '@rneui/themed';
 import {checkDeviceStatus} from 'api/device';
 import LoadingModal from 'components/atoms/loading-modal';
 import React, {useEffect, useRef, useState} from 'react';
 import {useTranslation} from 'react-i18next';
-import {Alert, Linking, Text, View} from 'react-native';
+import {Alert, Linking, View} from 'react-native';
 import {openSettings} from 'react-native-permissions';
 import QRCodeScanner from 'react-native-qrcode-scanner';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import WifiManager from 'react-native-wifi-reborn';
 import useStore from 'stores';
-import {goToUrlPortalDelay} from 'utils';
+import {Gap, goToUrlPortalDelay} from 'utils';
 import {checkCameraPermission} from 'utils/permissions';
 import AppStyles from 'utils/styles';
 import {connectWifi} from 'utils/wifi';
@@ -197,9 +198,20 @@ export default function ScanQRScreen({
   };
 
   return (
-    <View style={AppStyles.flex1}>
+    <SafeAreaView edges={['bottom']} style={AppStyles.flex1}>
       {cameraPermission ? (
-        <QRCodeScanner ref={ref} onRead={onRead} />
+        <>
+          <QRCodeScanner ref={ref} onRead={onRead} />
+          <Text
+            style={[
+              AppStyles.margin,
+              AppStyles.textCenter,
+              AppStyles.textLarge,
+              {marginBottom: Gap * 2},
+            ]}>
+            {t('scan_qr.title')}
+          </Text>
+        </>
       ) : cameraPermission === false ? (
         <View style={[AppStyles.fullCenter, AppStyles.padding]}>
           <Text style={[AppStyles.textCenter, AppStyles.marginBottom]}>
@@ -209,6 +221,6 @@ export default function ScanQRScreen({
         </View>
       ) : null}
       <LoadingModal isVisible={sending} />
-    </View>
+    </SafeAreaView>
   );
 }
