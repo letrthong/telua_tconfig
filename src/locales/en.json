@@ -117,7 +117,8 @@
     "invalid_serial_number": "Invalid serial number",
     "is_registered": "Registered serial number",
     "no_camera_permission": "No camera access",
-    "title": "Put the QR code in the frame to get the device's wifi information"
+    "register_content": "Put the QR code in the frame to register the device",
+    "wifi_content": "Put the QR code in the frame to get the device's wifi information"
   },
   "screen_title": {
     "add_device": "Device registration",

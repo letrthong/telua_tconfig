@@ -209,7 +209,9 @@ export default function ScanQRScreen({
               AppStyles.textLarge,
               {marginBottom: Gap * 2},
             ]}>
-            {t('scan_qr.title')}
+            {route.params.type === 'wifi'
+              ? t('scan_qr.wifi_content')
+              : t('scan_qr.register_content')}
           </Text>
         </>
       ) : cameraPermission === false ? (
