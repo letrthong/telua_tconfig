@@ -118,7 +118,8 @@
     "invalid_serial_number": "Số serial không hợp lệ",
     "is_registered": "Số serial đã được đăng ký",
     "no_camera_permission": "Không có quyền truy cập camera",
-    "title": "Đặt mã QR vào khung để lấy thông tin của wifi của thiết bị"
+    "wifi_content": "Đặt mã QR vào khung để lấy thông tin của wifi của thiết bị",
+    "register_content": "Đặt mã QR vào khung để đăng ký thiết bị"
   },
   "screen_title": {
     "add_device": "Đăng ký thiết bị",
