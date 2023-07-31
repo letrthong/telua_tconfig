@@ -88,8 +88,9 @@
   "home": {
     "enter_config": "Vui lòng cập nhật cấu hình",
     "menu": {
+      "qr_register": "QR - Đăng ký thiết bị",
+      "qr_wifi": "QR - Wifi",
       "scan": "Quét",
-      "scan_qr": "Quét QR",
       "setting": "Cài đặt",
       "sign_in": "Đăng nhập"
     },
@@ -110,9 +111,11 @@
     "title": "Ngôn ngữ"
   },
   "scan_qr": {
+    "device_is_offline": "Thiết bị đang offline",
     "device_is_online": "Thiết bị đang online",
     "invalid": "Mã QR không hợp lệ",
     "invalid_serial_number": "Số serial không hợp lệ",
+    "is_registered": "Số serial đã được đăng ký",
     "no_camera_permission": "Không có quyền truy cập camera"
   },
   "screen_title": {

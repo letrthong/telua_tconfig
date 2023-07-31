@@ -123,9 +123,9 @@ const App = () => {
                 <RootStack.Screen
                   component={ScanQRScreen}
                   name="ScanQR"
-                  options={{
-                    title: t('screen_title.scan_qr'),
-                  }}
+                  options={({route}) => ({
+                    title: route.params.title,
+                  })}
                 />
                 <RootStack.Screen
                   component={AddDeviceScreen}

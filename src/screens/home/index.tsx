@@ -9,9 +9,10 @@ import dayjs from 'dayjs';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Alert, Linking, Platform, TouchableOpacity, View} from 'react-native';
+import {responsiveScreenWidth} from 'react-native-responsive-dimensions';
 import WifiManager from 'react-native-wifi-reborn';
 import useStore, {addLastScanTime} from 'stores';
-import {Gap, IconSizes, goToUrlPortalDelay, maxScanTime} from 'utils';
+import {IconSizes, goToUrlPortalDelay, maxScanTime} from 'utils';
 import AppStyles from 'utils/styles';
 import {Colors} from 'utils/themes';
 import {checkWifiEnabled, connectWifi, disconnectWifi} from 'utils/wifi';
@@ -38,10 +39,12 @@ const Item = ({Icon, title, count, onPress}: ItemProps) => {
     <TouchableOpacity
       disabled={!!count}
       style={[
-        AppStyles.flex1,
         AppStyles.itemCenter,
+        AppStyles.padding,
         !!count && AppStyles.opacityHalf,
-        {marginBottom: Gap * 2},
+        {
+          width: responsiveScreenWidth(50),
+        },
       ]}
       onPress={onPress}>
       <Icon
@@ -106,6 +109,21 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
     }
     return true;
   };
+
+  const onPressQRWifi = () => {
+    navigation.navigate('ScanQR', {
+      type: 'wifi',
+      title: t('home.menu.qr_wifi'),
+    });
+  };
+  const onPressQRRegister = () => {
+    navigation.navigate('ScanQR', {
+      type: 'register',
+      title: t('home.menu.qr_register'),
+    });
+  };
+  const onPressSignIn = () => Linking.openURL(signInUrl);
+  const onPressSetting = () => navigation.navigate('SettingList');
 
   const onPressScan = async () => {
     const isMatchedSsid = (ssid: string) => {
@@ -187,20 +205,26 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
     }
   };
 
-  const onPressSetting = () => navigation.navigate('SettingList');
-
-  const onPressScanQR = () => navigation.navigate('ScanQR');
-
-  const onPressSignIn = () => Linking.openURL(signInUrl);
-
   return (
-    <View style={[AppStyles.flex1, AppStyles.padding]}>
+    <View style={AppStyles.flex1}>
       <View style={AppStyles.row}>
         <Item
           count={remainTime}
-          Icon={Search}
-          title={t('home.menu.scan')}
-          onPress={onPressScan}
+          Icon={Scan}
+          title={t('home.menu.qr_wifi')}
+          onPress={onPressQRWifi}
+        />
+        <Item
+          Icon={SignIn}
+          title={t('home.menu.sign_in')}
+          onPress={onPressSignIn}
+        />
+      </View>
+      <View style={AppStyles.row}>
+        <Item
+          Icon={Scan}
+          title={t('home.menu.qr_register')}
+          onPress={onPressQRRegister}
         />
         <Item
           Icon={Setting}
@@ -209,16 +233,7 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
         />
       </View>
       <View style={AppStyles.row}>
-        <Item
-          Icon={Scan}
-          title={t('home.menu.scan_qr')}
-          onPress={onPressScanQR}
-        />
-        <Item
-          Icon={SignIn}
-          title={t('home.menu.sign_in')}
-          onPress={onPressSignIn}
-        />
+        <Item Icon={Search} title={t('home.menu.scan')} onPress={onPressScan} />
       </View>
       <LoadingModal isVisible={loading} />
     </View>

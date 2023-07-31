@@ -88,8 +88,9 @@
   "home": {
     "enter_config": "Please update the configuration",
     "menu": {
+      "qr_register": "QR - Device Registration",
+      "qr_wifi": "QR - Wifi",
       "scan": "Scan",
-      "scan_qr": "Scan QR",
       "setting": "Settings",
       "sign_in": "Log in"
     },
@@ -110,9 +111,11 @@
     "title": "Language"
   },
   "scan_qr": {
+    "device_is_offline": "Device is offline",
     "device_is_online": "Device is online",
     "invalid": "Invalid QR code",
     "invalid_serial_number": "Invalid serial number",
+    "is_registered": "Registered serial number",
     "no_camera_permission": "No camera access"
   },
   "screen_title": {

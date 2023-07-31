@@ -69,7 +69,7 @@ export const connectWifi = async ({
   password?: string;
   onSetLoading?: (value: boolean) => void;
   onTimeout?: () => void;
-  onSucess?: (ssid: string) => void;
+  onSucess?: (ssid: string) => Promise<void>;
 }) => {
   /**
    *  TetheringManager.connectToNetwork only work on android 10 and above
@@ -107,7 +107,7 @@ export const connectWifi = async ({
   }).map((_, index) => index)) {
     try {
       const currentSSID = await WifiManager.getCurrentWifiSSID();
-      onSucess?.(currentSSID);
+      await onSucess?.(currentSSID);
       break;
     } catch (error) {}
     await new Promise(resolve =>

@@ -18,7 +18,7 @@ export type CheckDeviceStatusBody = {
 };
 
 export type CheckDeviceStatusResponse = {
-  validID?: boolean;
+  validId?: boolean;
   isOnline?: boolean;
   isRegister?: boolean;
 };
