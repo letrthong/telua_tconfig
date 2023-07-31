@@ -7,7 +7,10 @@ type RootStackParamList = {
   Main: undefined;
   SettingList: undefined;
   SettingConfig: undefined;
-  ScanQR: undefined;
+  ScanQR: {type: 'wifi' | 'register'; title: string};
+  AddDevice: {
+    serialNumber: string;
+  };
 };
 
 type MainTabParamList = {

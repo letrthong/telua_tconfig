@@ -6,18 +6,24 @@ export type AddDeviceBody = {
   pincode: string;
 };
 
+export type AddDeviceResponse = {
+  /** 1: sucesss */
+  returnCode: number;
+  returnCodeName: string;
+};
+
 export type CheckDeviceStatusBody = {
   serialNumber: string;
 };
 
 export type CheckDeviceStatusResponse = {
-  validID?: boolean;
+  validId?: boolean;
   isOnline?: boolean;
   isRegister?: boolean;
 };
 
 export const addDevice = (body: AddDeviceBody) => {
-  return Api.post(Links.device.add, body);
+  return Api.post<AddDeviceResponse>(Links.device.add, body);
 };
 
 export const checkDeviceStatus = (body: CheckDeviceStatusBody) => {
