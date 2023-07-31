@@ -150,7 +150,14 @@ export default function ScanQRScreen({
           alert(t('scan_qr.device_is_offline'), true);
         }
       } else {
-        alert(t('alert.error.default'));
+        if (
+          response.problem === 'CONNECTION_ERROR' ||
+          response.problem === 'NETWORK_ERROR'
+        ) {
+          alert(t('alert.error.network'));
+        } else {
+          alert(t('alert.error.default'));
+        }
       }
     } catch (error) {
     } finally {

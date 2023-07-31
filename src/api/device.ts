@@ -6,10 +6,9 @@ export type AddDeviceBody = {
   pincode: string;
 };
 
-export type AddDeviceBodyReturnCode = 3;
-
 export type AddDeviceResponse = {
-  returnCode: AddDeviceBodyReturnCode;
+  /** 1: success */
+  returnCode: number;
   returnCodeName: string;
 };
 

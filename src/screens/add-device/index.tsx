@@ -41,18 +41,18 @@ export default function AddDeviceScreen({
         pincode: data.pincode,
       });
       if (response.ok && response.data) {
-        if (response.data.returnCode === 3) {
+        if (response.data.returnCode === 1) {
+          showMessage({
+            type: 'success',
+            message: t('add_device.success'),
+          });
+          navigation.goBack();
+        } else {
           showMessage({
             type: 'danger',
             message: response.data.returnCodeName,
           });
-          return;
         }
-        showMessage({
-          type: 'success',
-          message: t('add_device.success'),
-        });
-        navigation.goBack();
       } else {
         showMessage({
           type: 'danger',
