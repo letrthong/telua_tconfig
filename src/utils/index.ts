@@ -78,6 +78,8 @@ export const defaultSetting: TSetting = {
 
 export const maxScanTime = 4;
 
+export const goToUrlPortalDelay = 3000;
+
 export const getItemWidth = (cols = 1) => {
   return (responsiveScreenWidth(100) - Gap * (cols + 1)) / cols;
 };
