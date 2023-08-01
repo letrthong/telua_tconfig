@@ -7,13 +7,17 @@ import {useTranslation} from 'react-i18next';
 import {Alert, Linking, View} from 'react-native';
 import {openSettings} from 'react-native-permissions';
 import QRCodeScanner from 'react-native-qrcode-scanner';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {
+  responsiveScreenWidth,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 import WifiManager from 'react-native-wifi-reborn';
 import useStore from 'stores';
-import {Gap, goToUrlPortalDelay} from 'utils';
+import {goToUrlPortalDelay} from 'utils';
 import {checkCameraPermission} from 'utils/permissions';
 import AppStyles from 'utils/styles';
 import {connectWifi} from 'utils/wifi';
+import type {CheckDeviceStatusResponse} from 'api/device';
 import type {ComponentProps} from 'react';
 import type {RootStackScreenProps} from 'typings/navigation';
 
@@ -23,6 +27,12 @@ type TQRCodeWifi = {
 };
 
 type TQRCodeRegister = {
+  serialNumber: string;
+};
+
+type TQRCode = {
+  wiFi: string;
+  password: string;
   serialNumber: string;
 };
 
@@ -59,99 +69,126 @@ export default function ScanQRScreen({
     ]);
   };
 
-  const onReadWifi = async (data: TQRCodeWifi) => {
+  const onReadWifi = async (
+    dataQR: TQRCodeWifi,
+    dataResponse: CheckDeviceStatusResponse,
+  ) => {
     const goToUrlPortal = () => {
       setSending(false);
       navigation.goBack();
       Linking.openURL(setting.url_portal);
     };
 
-    try {
-      setSending(true);
-      try {
-        const currentSSID = await WifiManager.getCurrentWifiSSID();
-        if (currentSSID === data.wiFi) {
-          goToUrlPortal();
-          return;
-        }
-      } catch (error) {}
+    if (dataResponse.isOnline) {
+      alert(t('scan_qr.device_is_online'), true);
+      return;
+    }
 
-      let isSucess = true;
-      for await (const times of Array.from({
-        length: maxConnectWifiIntervalTimes,
-      }).map((_, i) => i)) {
-        let canContinue = true;
-        try {
-          await connectWifi({
-            ssid: data.wiFi,
-            password: data.password,
-            onSetLoading: setSending,
-            onTimeout: () => {
-              if (times === maxConnectWifiIntervalTimes - 1) {
-                isSucess = false;
-              }
-              alert(t('alert.error.default'));
-            },
-            onSucess: async ssid => {
-              canContinue = false;
-              if (ssid === data.wiFi) {
-                await new Promise(r => setTimeout(r, goToUrlPortalDelay));
-                goToUrlPortal();
-              } else {
-                setSending(false);
-                alert(t('home.wifi_was_saved'));
-              }
-            },
-          });
-        } catch (error) {
-          if (times === maxConnectWifiIntervalTimes - 1) {
-            isSucess = false;
-          }
-        }
-        await new Promise(resolve =>
-          setTimeout(resolve, connectWifiIntervalTime),
-        );
-        if (!canContinue) {
-          break;
+    try {
+      const currentSSID = await WifiManager.getCurrentWifiSSID();
+      if (currentSSID === dataQR.wiFi) {
+        goToUrlPortal();
+        return;
+      }
+    } catch (error) {}
+
+    let isSucess = true;
+    for await (const times of Array.from({
+      length: maxConnectWifiIntervalTimes,
+    }).map((_, i) => i)) {
+      let canContinue = true;
+      try {
+        await connectWifi({
+          ssid: dataQR.wiFi,
+          password: dataQR.password,
+          onSetLoading: setSending,
+          onTimeout: () => {
+            if (times === maxConnectWifiIntervalTimes - 1) {
+              isSucess = false;
+            }
+            alert(t('alert.error.default'));
+          },
+          onSucess: async ssid => {
+            canContinue = false;
+            if (ssid === dataQR.wiFi) {
+              await new Promise(r => setTimeout(r, goToUrlPortalDelay));
+              goToUrlPortal();
+            } else {
+              setSending(false);
+              alert(t('home.wifi_was_saved'));
+            }
+          },
+        });
+      } catch (error) {
+        if (times === maxConnectWifiIntervalTimes - 1) {
+          isSucess = false;
         }
       }
-      if (!isSucess) {
-        alert(t('home.no_match'));
+      await new Promise(resolve =>
+        setTimeout(resolve, connectWifiIntervalTime),
+      );
+      if (!canContinue) {
+        break;
       }
-    } catch (error) {
-    } finally {
-      setSending(false);
+    }
+    if (!isSucess) {
+      alert(t('home.no_match'));
     }
   };
 
-  const onReadRegister = async (data: TQRCodeRegister) => {
-    try {
-      setSending(true);
-      const response = await checkDeviceStatus({
-        serialNumber: data.serialNumber,
-      });
-      if (
-        response.ok &&
-        response.data?.validId !== undefined &&
-        response.data?.isOnline !== undefined &&
-        response.data?.isRegister !== undefined
-      ) {
-        if (!response.data?.validId) {
-          alert(t('scan_qr.invalid_serial_number'));
-          return;
-        }
-
-        if (response.data.isOnline) {
-          if (response.data.isRegister) {
-            alert(t('scan_qr.is_registered'), true);
-          } else {
-            navigation.replace('AddDevice', {serialNumber: data.serialNumber});
-          }
-        } else {
-          alert(t('scan_qr.device_is_offline'), true);
-        }
+  const onReadRegister = async (
+    dataQR: TQRCodeRegister,
+    dataResponse: CheckDeviceStatusResponse,
+  ) => {
+    if (dataResponse.isOnline) {
+      if (dataResponse.isRegister) {
+        alert(t('scan_qr.is_registered'), true);
       } else {
+        navigation.replace('AddDevice', {
+          serialNumber: dataQR.serialNumber,
+        });
+      }
+    } else {
+      alert(t('scan_qr.device_is_offline'), true);
+    }
+  };
+
+  const onRead: ComponentProps<typeof QRCodeScanner>['onRead'] = async e => {
+    try {
+      const type = e.type as typeof e.type | 'QR_CODE';
+      const data = JSON.parse(e.data) as TQRCode;
+      if (
+        type !== 'QR_CODE' ||
+        typeof data?.wiFi !== 'string' ||
+        typeof data?.password !== 'string' ||
+        typeof data?.serialNumber !== 'string'
+      ) {
+        alert(t('scan_qr.invalid'));
+        return;
+      }
+
+      try {
+        setSending(true);
+        const response = await checkDeviceStatus({
+          serialNumber: data.serialNumber,
+        });
         if (
+          response.ok &&
+          response.data?.validId !== undefined &&
+          response.data?.isOnline !== undefined &&
+          response.data?.isRegister !== undefined
+        ) {
+          if (!response.data?.validId) {
+            alert(t('scan_qr.invalid_serial_number'));
+            return;
+          }
+
+          if (route.params.type === 'wifi') {
+            await onReadWifi(data, response.data);
+          } else {
+            await onReadRegister(data, response.data);
+          }
+        } else if (
           response.problem === 'CONNECTION_ERROR' ||
           response.problem === 'NETWORK_ERROR'
         ) {
@@ -159,38 +196,9 @@ export default function ScanQRScreen({
         } else {
           alert(t('alert.error.default'));
         }
-      }
-    } catch (error) {
-    } finally {
-      setSending(false);
-    }
-  };
-
-  const onRead: ComponentProps<typeof QRCodeScanner>['onRead'] = async e => {
-    try {
-      const type = e.type as typeof e.type | 'QR_CODE';
-      if (type !== 'QR_CODE') {
-        alert(t('scan_qr.invalid'));
-        return;
-      }
-
-      if (route.params.type === 'wifi') {
-        const data = JSON.parse(e.data) as unknown as TQRCodeWifi;
-        if (
-          typeof data?.wiFi !== 'string' ||
-          typeof data?.password !== 'string'
-        ) {
-          alert(t('scan_qr.invalid'));
-          return;
-        }
-        onReadWifi(data);
-      } else {
-        const data = JSON.parse(e.data) as unknown as TQRCodeRegister;
-        if (typeof data?.serialNumber !== 'string') {
-          alert(t('scan_qr.invalid'));
-          return;
-        }
-        onReadRegister(data);
+      } catch (error) {
+      } finally {
+        setSending(false);
       }
     } catch (error) {
       alert(t('scan_qr.invalid'));
@@ -198,22 +206,34 @@ export default function ScanQRScreen({
   };
 
   return (
-    <SafeAreaView edges={['bottom']} style={AppStyles.flex1}>
+    <View style={[AppStyles.flex1, AppStyles.justifyCenter]}>
       {cameraPermission ? (
-        <>
-          <QRCodeScanner ref={ref} onRead={onRead} />
+        <View style={AppStyles.itemCenter}>
+          <View
+            style={[
+              {width: responsiveScreenWidth(80)},
+              AppStyles.ratio1,
+              AppStyles.selfCenter,
+              AppStyles.overflowHidden,
+            ]}>
+            <QRCodeScanner
+              ref={ref}
+              cameraStyle={AppStyles.full}
+              onRead={onRead}
+            />
+          </View>
           <Text
             style={[
-              AppStyles.margin,
               AppStyles.textCenter,
               AppStyles.textLarge,
-              {marginBottom: Gap * 2},
+              AppStyles.marginTop,
+              {marginHorizontal: responsiveWidth(10)},
             ]}>
             {route.params.type === 'wifi'
               ? t('scan_qr.wifi_content')
               : t('scan_qr.register_content')}
           </Text>
-        </>
+        </View>
       ) : cameraPermission === false ? (
         <View style={[AppStyles.fullCenter, AppStyles.padding]}>
           <Text style={[AppStyles.textCenter, AppStyles.marginBottom]}>
@@ -223,6 +243,6 @@ export default function ScanQRScreen({
         </View>
       ) : null}
       <LoadingModal isVisible={sending} />
-    </SafeAreaView>
+    </View>
   );
 }
