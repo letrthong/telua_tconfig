@@ -16,11 +16,11 @@ const FontStyles = StyleSheet.create({
   bold: {
     fontWeight: Platform.select({ios: '700', android: undefined}),
   },
-  regular: {
-    fontWeight: '400',
-  },
   medium: {
     fontWeight: '500',
+  },
+  regular: {
+    fontWeight: '400',
   },
 });
 

@@ -1,4 +1,10 @@
 {
+  "add_device": {
+    "account_id": "Tài khoản",
+    "pin_code": "Mã PIN",
+    "serial_number": "Số serial",
+    "success": "Đăng ký thành công"
+  },
   "alert": {
     "error": {
       "default": "Có lỗi xảy ra, vui lòng thử lại sau",
@@ -54,6 +60,7 @@
     "open_settings": "Mở cài đặt",
     "pay": "Thanh toán ",
     "post": "Đăng",
+    "reset": "Reset",
     "revise": "Sửa đổi",
     "save": "Lưu",
     "select_range": "Chọn phạm vi",
@@ -61,8 +68,7 @@
     "show_all": "Tất cả",
     "skip": "Bỏ qua",
     "update": "Cập nhật",
-    "upload": "Tải lên",
-    "reset": "Reset"
+    "upload": "Tải lên"
   },
   "codepush": {
     "optional_ignore_button_label": "Bỏ qua",
@@ -83,8 +89,11 @@
   "home": {
     "enter_config": "Vui lòng cập nhật cấu hình",
     "menu": {
+      "qr_register": "QR - Đăng ký thiết bị",
+      "qr_wifi": "QR - Wifi",
       "scan": "Quét",
-      "setting": "Cài đặt"
+      "setting": "Cài đặt",
+      "sign_in": "Đăng nhập"
     },
     "no_match": "Không tìm thấy wifi phù hợp",
     "wifi_was_saved": "Wifi đã được lưu, vui lòng quên wifi hiện tại"
@@ -102,7 +111,19 @@
     },
     "title": "Ngôn ngữ"
   },
+  "scan_qr": {
+    "device_is_offline": "Thiết bị đang offline",
+    "device_is_online": "Thiết bị đang online",
+    "invalid": "Mã QR không hợp lệ",
+    "invalid_serial_number": "Số serial không hợp lệ",
+    "is_registered": "Số serial đã được đăng ký",
+    "no_camera_permission": "Không có quyền truy cập camera",
+    "wifi_content": "Đặt mã QR vào khung để lấy thông tin của wifi của thiết bị",
+    "register_content": "Đặt mã QR vào khung để đăng ký thiết bị"
+  },
   "screen_title": {
+    "add_device": "Đăng ký thiết bị",
+    "scan_qr": "Quét QR",
     "setting_config": "Cấu hình",
     "setting_list": "Cài đặt"
   },

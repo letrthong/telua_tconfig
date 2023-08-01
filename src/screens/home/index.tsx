@@ -1,10 +1,13 @@
 import {Text} from '@rneui/themed';
+import Scan from 'assets/svgs/scan.svg';
 import Search from 'assets/svgs/search.svg';
 import Setting from 'assets/svgs/setting.svg';
+import SignIn from 'assets/svgs/sign-in.svg';
 import LoadingModal from 'components/atoms/loading-modal';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Alert, Linking, TouchableOpacity, View} from 'react-native';
+import {responsiveScreenWidth} from 'react-native-responsive-dimensions';
 import WifiManager from 'react-native-wifi-reborn';
 import useStore from 'stores';
 import {IconSizes} from 'utils';
@@ -18,13 +21,24 @@ import type {MainTabScreenProps} from 'typings/navigation';
 type ItemProps = {
   Icon: FC<SvgProps>;
   title: string;
+  count?: number;
   onPress: () => void;
 };
 
-const Item = ({Icon, title, onPress}: ItemProps) => {
+const signInUrl = 'https://telua.co/aiot';
+
+const Item = ({Icon, title, count, onPress}: ItemProps) => {
   return (
     <TouchableOpacity
-      style={[AppStyles.flex1, AppStyles.itemCenter]}
+      disabled={!!count}
+      style={[
+        AppStyles.itemCenter,
+        AppStyles.padding,
+        !!count && AppStyles.opacityHalf,
+        {
+          width: responsiveScreenWidth(50),
+        },
+      ]}
       onPress={onPress}>
       <Icon
         color={Colors.primary}
@@ -32,7 +46,10 @@ const Item = ({Icon, title, onPress}: ItemProps) => {
         style={AppStyles.marginBottomSmall}
         width={IconSizes.veryLarge}
       />
-      <Text>{title}</Text>
+      <Text>
+        {title}
+        {count ? ` (${count})` : ''}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -54,6 +71,21 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
     }
     return true;
   };
+
+  const onPressQRWifi = () => {
+    navigation.navigate('ScanQR', {
+      type: 'wifi',
+      title: t('home.menu.qr_wifi'),
+    });
+  };
+  const onPressQRRegister = () => {
+    navigation.navigate('ScanQR', {
+      type: 'register',
+      title: t('home.menu.qr_register'),
+    });
+  };
+  const onPressSignIn = () => Linking.openURL(signInUrl);
+  const onPressSetting = () => navigation.navigate('SettingList');
 
   const onPressScan = async () => {
     const goToUrlPortal = () => {
@@ -101,17 +133,34 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
     }
   };
 
-  const onPressSetting = () => navigation.navigate('SettingList');
-
   return (
-    <View style={[AppStyles.flex1, AppStyles.padding]}>
+    <View style={AppStyles.flex1}>
       <View style={AppStyles.row}>
-        <Item Icon={Search} title={t('home.menu.scan')} onPress={onPressScan} />
+        <Item
+          Icon={Scan}
+          title={t('home.menu.qr_wifi')}
+          onPress={onPressQRWifi}
+        />
+        <Item
+          Icon={SignIn}
+          title={t('home.menu.sign_in')}
+          onPress={onPressSignIn}
+        />
+      </View>
+      <View style={AppStyles.row}>
+        <Item
+          Icon={Scan}
+          title={t('home.menu.qr_register')}
+          onPress={onPressQRRegister}
+        />
         <Item
           Icon={Setting}
           title={t('home.menu.setting')}
           onPress={onPressSetting}
         />
+      </View>
+      <View style={AppStyles.row}>
+        <Item Icon={Search} title={t('home.menu.scan')} onPress={onPressScan} />
       </View>
       <LoadingModal isVisible={loading} />
     </View>

@@ -1,4 +1,10 @@
 {
+  "add_device": {
+    "account_id": "Account",
+    "pin_code": "Pin code",
+    "serial_number": "Serial number",
+    "success": "Register successfully"
+  },
   "alert": {
     "error": {
       "default": "An error occurred, please try again later",
@@ -83,8 +89,11 @@
   "home": {
     "enter_config": "Please update the configuration",
     "menu": {
+      "qr_register": "QR - Device Registration",
+      "qr_wifi": "QR - Wifi",
       "scan": "Scan",
-      "setting": "Settings"
+      "setting": "Settings",
+      "sign_in": "Log in"
     },
     "no_match": "No matching wifi found",
     "wifi_was_saved": "Wifi is saved, please forget the current wifi"
@@ -102,7 +111,19 @@
     },
     "title": "Language"
   },
+  "scan_qr": {
+    "device_is_offline": "Device is offline",
+    "device_is_online": "Device is online",
+    "invalid": "Invalid QR code",
+    "invalid_serial_number": "Invalid serial number",
+    "is_registered": "Registered serial number",
+    "no_camera_permission": "No camera access",
+    "register_content": "Put the QR code in the frame to register the device",
+    "wifi_content": "Put the QR code in the frame to get the device's wifi information"
+  },
   "screen_title": {
+    "add_device": "Device registration",
+    "scan_qr": "Scan QR",
     "setting_config": "Configurations",
     "setting_list": "Settings"
   },
