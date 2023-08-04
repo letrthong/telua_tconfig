@@ -7,6 +7,7 @@ import LoadingModal from 'components/atoms/loading-modal';
 import React, {useEffect, useState} from 'react';
 import {useTranslation} from 'react-i18next';
 import {Alert, Linking, TouchableOpacity, View} from 'react-native';
+import {InAppBrowser} from 'react-native-inappbrowser-reborn';
 import {responsiveScreenWidth} from 'react-native-responsive-dimensions';
 import WifiManager from 'react-native-wifi-reborn';
 import useStore from 'stores';
@@ -84,7 +85,7 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
       title: t('home.menu.qr_register'),
     });
   };
-  const onPressSignIn = () => Linking.openURL(signInUrl);
+  const onPressSignIn = () => InAppBrowser.open(signInUrl);
   const onPressSetting = () => navigation.navigate('SettingList');
 
   const onPressScan = async () => {

@@ -441,6 +441,8 @@ PODS:
     - React-Core
   - RNGestureHandler (2.12.0):
     - React-Core
+  - RNInAppBrowser (3.7.0):
+    - React-Core
   - RNLocalize (3.0.2):
     - React-Core
   - RNPermissions (3.8.4):
@@ -552,6 +554,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - RNBootSplash (from `../node_modules/react-native-bootsplash`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNInAppBrowser (from `../node_modules/react-native-inappbrowser-reborn`)
   - RNLocalize (from `../node_modules/react-native-localize`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -662,6 +665,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-bootsplash"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNInAppBrowser:
+    :path: "../node_modules/react-native-inappbrowser-reborn"
   RNLocalize:
     :path: "../node_modules/react-native-localize"
   RNPermissions:
@@ -734,6 +739,7 @@ SPEC CHECKSUMS:
   ReactCommon: a6d1c76b9e10b439e41db225263341240e1cda9f
   RNBootSplash: 85f6b879c080e958afdb4c62ee04497b05fd7552
   RNGestureHandler: dec4645026e7401a0899f2846d864403478ff6a5
+  RNInAppBrowser: e36d6935517101ccba0e875bac8ad7b0cb655364
   RNLocalize: dbea38dcb344bf80ff18a1757b1becf11f70cae4
   RNPermissions: efec0cf9c77bbb12cb033c256eaf21c8cdd8beea
   RNReanimated: 6c5ec9e66b9d6a14e3f57c5f607f7c5169b6607e
