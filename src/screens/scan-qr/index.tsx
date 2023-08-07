@@ -14,7 +14,10 @@ import {
 import WifiManager from 'react-native-wifi-reborn';
 import useStore from 'stores';
 import {goToUrlPortalDelay} from 'utils';
-import {checkCameraPermission} from 'utils/permissions';
+import {
+  checkCameraPermission,
+  checkFineLocationPermission,
+} from 'utils/permissions';
 import AppStyles from 'utils/styles';
 import {connectWifi} from 'utils/wifi';
 import type {CheckDeviceStatusResponse} from 'api/device';
@@ -69,28 +72,21 @@ export default function ScanQRScreen({
     ]);
   };
 
+  const goToUrlPortal = async () => {
+    await new Promise(r => setTimeout(r, goToUrlPortalDelay));
+    setSending(false);
+    navigation.goBack();
+    Linking.openURL(setting.url_portal);
+  };
+
   const onReadWifi = async (
     dataQR: TQRCodeWifi,
     dataResponse: CheckDeviceStatusResponse,
   ) => {
-    const goToUrlPortal = () => {
-      setSending(false);
-      navigation.goBack();
-      Linking.openURL(setting.url_portal);
-    };
-
     if (dataResponse.isOnline) {
       alert(t('scan_qr.device_is_online'), true);
       return;
     }
-
-    try {
-      const currentSSID = await WifiManager.getCurrentWifiSSID();
-      if (currentSSID === dataQR.wiFi) {
-        goToUrlPortal();
-        return;
-      }
-    } catch (error) {}
 
     let isSucess = true;
     for await (const times of Array.from({
@@ -111,8 +107,7 @@ export default function ScanQRScreen({
           onSucess: async ssid => {
             canContinue = false;
             if (ssid === dataQR.wiFi) {
-              await new Promise(r => setTimeout(r, goToUrlPortalDelay));
-              goToUrlPortal();
+              await goToUrlPortal();
             } else {
               setSending(false);
               alert(t('home.wifi_was_saved'));
@@ -169,6 +164,19 @@ export default function ScanQRScreen({
 
       try {
         setSending(true);
+        if (route.params.type === 'wifi') {
+          const fineLocationPermision = await checkFineLocationPermission(true);
+          if (!fineLocationPermision) {
+            return;
+          }
+          try {
+            const currentSSID = await WifiManager.getCurrentWifiSSID();
+            if (currentSSID === data.wiFi) {
+              await goToUrlPortal();
+              return;
+            }
+          } catch (error) {}
+        }
         const response = await checkDeviceStatus({
           serialNumber: data.serialNumber,
         });
