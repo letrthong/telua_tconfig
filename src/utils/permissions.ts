@@ -1,6 +1,5 @@
 import i18n from 'locales';
-import {Linking, Platform} from 'react-native';
-import {Alert} from 'react-native';
+import {Alert, Linking, PermissionsAndroid, Platform} from 'react-native';
 import {PERMISSIONS, check, request} from 'react-native-permissions';
 
 export const alertFunc = (message: string | null) => {
@@ -32,6 +31,20 @@ export const checkCameraPermission = async (alert?: boolean) => {
   }
   if (alert && !status) {
     alertFunc(i18n.t('alert.permission.camera'));
+  }
+  return status;
+};
+
+export const checkFineLocationPermission = async (alert?: boolean) => {
+  let status = false;
+  const requestStatus = await PermissionsAndroid.request(
+    'android.permission.ACCESS_FINE_LOCATION',
+  );
+  if (requestStatus === 'granted') {
+    status = true;
+  }
+  if (alert && !status) {
+    alertFunc(i18n.t('alert.permission.location'));
   }
   return status;
 };
