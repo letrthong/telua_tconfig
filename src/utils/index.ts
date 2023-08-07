@@ -76,6 +76,8 @@ export const defaultSetting: TSetting = {
   url_portal: 'http://192.168.0.1',
 };
 
+export const goToUrlPortalDelay = 3000;
+
 export const getItemWidth = (cols = 1) => {
   return (responsiveScreenWidth(100) - Gap * (cols + 1)) / cols;
 };

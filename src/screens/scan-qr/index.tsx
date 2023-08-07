@@ -10,6 +10,7 @@ import QRCodeScanner from 'react-native-qrcode-scanner';
 import {responsiveScreenWidth} from 'react-native-responsive-dimensions';
 import WifiManager from 'react-native-wifi-reborn';
 import useStore from 'stores';
+import {goToUrlPortalDelay} from 'utils';
 import {checkCameraPermission} from 'utils/permissions';
 import AppStyles from 'utils/styles';
 import type {CheckDeviceStatusResponse} from 'api/device';
@@ -64,28 +65,21 @@ export default function ScanQRScreen({
     ]);
   };
 
+  const goToUrlPortal = async () => {
+    await new Promise(r => setTimeout(r, goToUrlPortalDelay));
+    setSending(false);
+    navigation.goBack();
+    Linking.openURL(setting.url_portal);
+  };
+
   const onReadWifi = async (
     dataQR: TQRCodeWifi,
     dataResponse: CheckDeviceStatusResponse,
   ) => {
-    const goToUrlPortal = () => {
-      setSending(false);
-      navigation.goBack();
-      Linking.openURL(setting.url_portal);
-    };
-
     if (dataResponse.isOnline) {
       alert(t('scan_qr.device_is_online'), true);
       return;
     }
-
-    try {
-      const currentSSID = await WifiManager.getCurrentWifiSSID();
-      if (currentSSID === dataQR.wiFi) {
-        goToUrlPortal();
-        return;
-      }
-    } catch (error) {}
 
     let isSucess = true;
     for await (const times of Array.from({
@@ -100,7 +94,7 @@ export default function ScanQRScreen({
           false,
         );
         canContinue = false;
-        goToUrlPortal();
+        await goToUrlPortal();
       } catch (error) {
         const e = error as Error & {code?: string};
         if (e?.code === 'userDenied') {
@@ -158,6 +152,15 @@ export default function ScanQRScreen({
 
       try {
         setSending(true);
+        if (route.params.type === 'wifi') {
+          try {
+            const currentSSID = await WifiManager.getCurrentWifiSSID();
+            if (currentSSID === data.wiFi) {
+              await goToUrlPortal();
+              return;
+            }
+          } catch (error) {}
+        }
         const response = await checkDeviceStatus({
           serialNumber: data.serialNumber,
         });
