@@ -103,6 +103,7 @@ export default function ScanQRScreen({
         }
         if (times === maxConnectWifiIntervalTimes - 1) {
           isSucess = false;
+          canContinue = false;
         }
       }
       if (!canContinue) {
