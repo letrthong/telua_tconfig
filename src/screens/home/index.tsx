@@ -209,7 +209,6 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
     <View style={AppStyles.flex1}>
       <View style={AppStyles.row}>
         <Item
-          count={remainTime}
           Icon={Scan}
           title={t('home.menu.qr_wifi')}
           onPress={onPressQRWifi}
@@ -233,7 +232,12 @@ export default function HomeScreen({navigation}: MainTabScreenProps<'Home'>) {
         />
       </View>
       <View style={AppStyles.row}>
-        <Item Icon={Search} title={t('home.menu.scan')} onPress={onPressScan} />
+        <Item
+          count={remainTime}
+          Icon={Search}
+          title={t('home.menu.scan')}
+          onPress={onPressScan}
+        />
       </View>
       <LoadingModal isVisible={loading} />
     </View>
