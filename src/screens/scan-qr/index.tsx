@@ -117,14 +117,15 @@ export default function ScanQRScreen({
       } catch (error) {
         if (times === maxConnectWifiIntervalTimes - 1) {
           isSucess = false;
+          canContinue = false;
         }
+      }
+      if (!canContinue) {
+        break;
       }
       await new Promise(resolve =>
         setTimeout(resolve, connectWifiIntervalTime),
       );
-      if (!canContinue) {
-        break;
-      }
     }
     if (!isSucess) {
       alert(t('home.no_match'));
