@@ -118,7 +118,7 @@ export default function AddDeviceScreen({
       />
 
       <Space />
-      <Button onPress={handleSubmit(onSubmit)}>{t('button.save')}</Button>
+      <Button onPress={handleSubmit(onSubmit)}>{t('button.register')}</Button>
       <LoadingModal isVisible={sending} />
     </KeyboardAwareScrollView>
   );
