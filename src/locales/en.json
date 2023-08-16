@@ -59,6 +59,7 @@
     "open_settings": "Open settings",
     "pay": "Pay",
     "post": "Post",
+    "register": "Register",
     "reset": "Reset",
     "revise": "Revise",
     "save": "Save",
@@ -89,8 +90,8 @@
     "enter_config": "Please update the configuration",
     "menu": {
       "qr_register": "QR - Device Registration",
-      "qr_wifi": "QR - Wifi",
-      "scan": "Scan",
+      "qr_wifi": "QR - Device connection",
+      "scan": "Scan Wifi Hotspot",
       "setting": "Settings",
       "sign_in": "Log in"
     },
@@ -117,8 +118,8 @@
     "invalid_serial_number": "Invalid serial number",
     "is_registered": "Registered serial number",
     "no_camera_permission": "No camera access",
-    "register_content": "Put the QR code in the frame to register the device",
-    "wifi_content": "Put the QR code in the frame to get the device's wifi information"
+    "register_content": "Scan the QR code on the device to register the device to tIoT.",
+    "wifi_content": "Scan the QR code on the device to connect to the device via WiFi Hotspot."
   },
   "screen_title": {
     "add_device": "Device registration",
