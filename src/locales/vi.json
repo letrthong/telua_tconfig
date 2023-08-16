@@ -60,6 +60,7 @@
     "open_settings": "Mở cài đặt",
     "pay": "Thanh toán ",
     "post": "Đăng",
+    "register": "Đăng ký",
     "reset": "Reset",
     "revise": "Sửa đổi",
     "save": "Lưu",
@@ -90,8 +91,8 @@
     "enter_config": "Vui lòng cập nhật cấu hình",
     "menu": {
       "qr_register": "QR - Đăng ký thiết bị",
-      "qr_wifi": "QR - Wifi",
-      "scan": "Quét",
+      "qr_wifi": "QR - Kết nối thiết bị",
+      "scan": "Quét Wifi Hotspot",
       "setting": "Cài đặt",
       "sign_in": "Đăng nhập"
     },
@@ -118,8 +119,8 @@
     "invalid_serial_number": "Số serial không hợp lệ",
     "is_registered": "Số serial đã được đăng ký",
     "no_camera_permission": "Không có quyền truy cập camera",
-    "wifi_content": "Đặt mã QR vào khung để lấy thông tin của wifi của thiết bị",
-    "register_content": "Đặt mã QR vào khung để đăng ký thiết bị"
+    "register_content": "Quét mã QR trên thiết bị để đăng ký thiết bị tới tIoT.",
+    "wifi_content": "Quét mã QR trên thiết bị để kết nối tới thiết bị thông qua WiFi Hotspot."
   },
   "screen_title": {
     "add_device": "Đăng ký thiết bị",
